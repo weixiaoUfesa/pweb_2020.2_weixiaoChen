@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+  <meta name="secret-code" content="1482348438">
+
+<style>
+body {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  background-color:  #CD5C5C;
+  color: white;
+}
+
+li a:hover:not(.active) {
+  background-color:  #CD5C5C;
+  color: white;
+}
+li {
+ border-bottom:1px solid rgb(3, 3, 3);
+}
+li:nth-child(3){
+  border: none;
+}
+
+li:nth-child(5){
+  border: none;
+}
+li:nth-child(6){
+  border: none;
+}
+input [type='checkbox']{
+    background-color:#1b1c64
+}
+
+</style>
+</head>
+<body>
+    
+
+<ul>
+    <li><a href="index.html">início</a></li>
+    <li><a href="noticias.html">Canais de notícias</a></li>
+    <li><a href="adicionarPessoa.html">Adicionar pessoa</a></li>
+  <li><a href="listarPessoas.html">Listar pessoas</a></li>
+  <li><a href="sobre.html">Sobre o site</a></li>
+  <li><a href="#Mandar um e-Mail">Mandar um e-Mail</a></li>
+</ul>
+
+<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+
+    <h1>Formulário para edição de pessoas:</h1>
+    <form action="listarPessoas.html" method="get">
+
+    Nome completo*: <input type="text" placeholder="seu nome completo">
+
+    <p>Data de nascimento*: <input type=" text"placeholder="dd/mm/aaaa"></p>
+
+    e-Mail*: <input type="text"placeholder="nome@dominio.com">
+     
+
+    <p><input type="checkbox" name="Sexo" id="Masculino">Masculino</p>
+    <p><input type="checkbox" name="Sexo" id="Feminino">Feminino</p>
+    <p><input type="checkbox" name="Sexo" id="Não informar">Não informar</p>
+    
+
+    <input type="reset" value="limpa"style="background-color:#CD5C5C ;">
+    <input type="submit" value="cadastrar!"style="background-color:#CD5C5C;">
+
+    </form>
+</div>
+
+</body>
+</html>
