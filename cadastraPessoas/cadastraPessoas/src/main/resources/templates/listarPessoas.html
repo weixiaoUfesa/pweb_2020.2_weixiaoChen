@@ -11,17 +11,18 @@
  
 </head>
 <body>
-  
+
 
 <ul>
   <li><a href="/">Início</a></li>
-<hr />
-<li><a href="/adicionarPessoa">Adicionar pessoa</a></li>
+  <li><a href="/public/noticias.html">Canais de notícias</a></li>
+  <li><a href="/adicionarPessoa">Adicionar pessoa</a></li>
+
   <li><a href="/listarPessoas" class="active">Listar pessoas</a></li>
-<hr />
-  <li><a href="/public/noticias.html">Notícias</a></li>
-<li><a href="/public/sobre.html">Sobre</a></li>
-  <li><a href="/public/contato.html">Contato</a></li>
+
+
+  <li><a href="/public/sobre.html">Sobre o site</a></li>
+  <li><a href="/public/mandarEmail.html">Mandar um e-Mail</a></li>
 </ul>
 
 
@@ -42,8 +43,22 @@
        </tr>
      </thead>
      <tbody>
-       Tem que ver a aula...
-     </tbody>
+        <tr th:each  ="pessoa: ${pessoas}">
+              <td th:text="${pessoa.id}"></td>
+              <td th:text="${pessoa.nome}"></td>
+              <td>
+                <a th:href=" 'mailto: ' + ${pessoa.email}" th:text="${pessoa.email}" ></a>
+              </td>
+              <td th:text= "${#temporals.format(pessoa.dataNascimento,'dd/MM/yyyy')}"></td>
+              <td th:text="${pessoa.genero}" ></td>
+              <td>
+                <a th:href="@{/editar/{id}(id=${pessoa.id})}">Editar</a>
+              </td>
+              <td>
+                <a th:href="@{/remover/{id}(id=${pessoa.id})}">Remover</a>
+              </td>
+
+         </tbody>
    </table>
 </body>
 </html>
