@@ -29,7 +29,10 @@ public class PessoaController {
 		 ModelAndView mav =new ModelAndView("listarPessoas");
 				 mav.addObject("pessoas",lista);
 				 return mav;
-				 
-	 }
-	  
+				  }
+	 
+	  @GetMapping("/adicionarPessoa")
+	  public String ad() {
+		  return"adicionarPessoa.html";
+	  }
 }
