@@ -35,4 +35,9 @@ public class PessoaController {
 	  public String ad() {
 		  return"adicionarPessoa.html";
 	  }
+	  
+	  @GetMapping("/adicionadaComSucesso")
+	  public String adc() {
+		  return"adicionadaComSucesso.html";
+	  }
 }
