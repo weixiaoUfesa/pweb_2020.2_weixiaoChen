@@ -1,5 +1,6 @@
 package com.weixiao.cadpessoas.cadastraPessoas.controllers;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -69,16 +70,40 @@ public class PessoaController {
 	
 	  }
 	  
-	  /*@GetMapping("/adicionadaComSucesso")
-	  public String adc() {
-		  return "adicionadaComSucesso.html";
-	  }*/
+	  //editar
+	  @GetMapping("/editarPessoa/{id}")
+	  public ModelAndView formEditarPessoa(@PathVariable("id") long id ) {
+		  Pessoa aEditar=pessoaRepo.findById(id)
+				  .orElseThrow(()->new IllegalArgumentException("id inválido:"+id));
 	  
+		  ModelAndView mav = new ModelAndView("editarPessoa.html");
+		  mav.addObject(aEditar) ;
+		  return mav;
+	  }
+	  @PostMapping("/editarPessoa/{id}")
+	  public ModelAndView formEditarPessoa(@PathVariable("id") long id,Pessoa pessoa ) {
+		  
+		  String str=pessoa.getTemp();
+		  DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+		  LocalDate date = LocalDate.parse(str, fmt);
+		  pessoa.setDataNascimento(date);
+		  
+		  this.pessoaRepo.save(pessoa);
+		  return new ModelAndView("redirect:/listarPessoas");
+	  }
+	
+	  //remover
 	  @GetMapping("/remover/{id}")
 	  public ModelAndView removerPessoa(@PathVariable("id") long id) {
 		  Pessoa aRemover = pessoaRepo.findById(id)
 				  .orElseThrow(()-> new IllegalArgumentException("ID inválido:"+id));
 		  pessoaRepo.delete(aRemover);
 		  return new ModelAndView("redirect:/listarPessoas");
+	  }
+	  
+	  @PostMapping("/remover/{id}")
+	  public ModelAndView editarPessoa(@PathVariable("id") long id ,Pessoa pessoa) {
+		  this.pessoaRepo.save(pessoa);
+		  return new ModelAndView("redirect:/listarPessoas")
 	  }
 }

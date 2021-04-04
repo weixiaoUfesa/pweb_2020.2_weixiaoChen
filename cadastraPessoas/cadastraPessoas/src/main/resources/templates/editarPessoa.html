@@ -1,42 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt_br">
 <head>
-  <link rel="stylesheet" href="./style/editar_style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href ="@{/public/123.ico}" rel="icon" type="image/x-icon"/>
+  <link th:href ="@{/css/aP.css}" rel="stylesheet"/>
   <meta name="secret-code" content="1482348438">
-
+  <title>Adicionar pessoa - Com Spring</title>
 
 </head>
-<body>
-    
 
-<ul>
-    <li><a href="index.html">início</a></li>
-    <li><a href="noticias.html">Canais de notícias</a></li>
-    <li><a href="adicionarPessoa.html">Adicionar pessoa</a></li>
-  <li><a href="listarPessoas.html">Listar pessoas</a></li>
-  <li><a href="sobre.html">Sobre o site</a></li>
-  <li><a href="#Mandar um e-Mail">Mandar um e-Mail</a></li>
-</ul>
+<body>
+  <ul>
+    <li><a href="/">Início</a></li>
+    <li><a href="/public/noticias.html">Canais de notícias</a></li>
+    <li><a href="/adicionarPessoa" >Adicionar pessoa</a></li>
+    <li><a href="/listarPessoas">Listar pessoas</a></li>
+    <li><a href="/public/sobre.html">Sobre o site</a></li>
+    <li><a href="/public/mandarEmail.html">Mandar um e-Mail</a></li>
+  </ul>
+
+
 
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
 
-    <h1>Formulário para edição de pessoas:</h1>
-    <form action="listarPessoas.html" method="get">
+    <h1>Editar pessoa</h1>
+    <form action="#"
+    method="POST"
+    th:object="${pessoa}"
+    th:action="@{/editarPessoa/{id}(id=${pessoa.id})}"
+    >
 
-    Nome completo*: <input type="text" placeholder="seu nome completo">
-
-    <p>Data de nascimento*: <input type=" text"placeholder="dd/mm/aaaa"></p>
-
-    e-Mail*: <input type="text"placeholder="nome@dominio.com">
-     
-
-    <p><input type="checkbox" name="Sexo" id="Masculino">Masculino</p>
-    <p><input type="checkbox" name="Sexo" id="Feminino">Feminino</p>
-    <p><input type="checkbox" name="Sexo" id="Não informar">Não informar</p>
+    <p>Nome completo*: 
+      <input type="text" placeholder="seu nome completo" th:field="*{nome}" required/>
+    </p>
     
 
-    <input type="reset" value="limpa"style="background-color:#CD5C5C ;">
-    <input type="submit" value="cadastrar!"style="background-color:#CD5C5C;">
+ <p>
+   Data de Nascimento*:
+  <input type="date" placeholder="data" th:field="*{temp}" required/>
+    </p>
+
+ </p>
+
+    <P>
+    e-Mail*: 
+    <input type="text"placeholder="nome@dominio.com" th:field="*{email}" required/>
+    </P>
+
+    <P> Gênero*: </P>
+    <p>
+      <input type="radio" name="genero" value="Masculino" th:field ="*{genero}"required/>Masculino
+    </p>
+
+    <p>
+      <input type="radio" name="genero" value="Feminino" th:field ="*{genero}"required/>Feminino
+    </p>
+
+    <p>
+      <input type="radio" name="genero" value="Não Informado" th:field ="*{genero}"required/>Não Informar
+    </p>
+    
+    <input class="hh" type="reset" value="limpa">
+    <input class="hh" type="submit" value="cadastrar!">
 
     </form>
 </div>
