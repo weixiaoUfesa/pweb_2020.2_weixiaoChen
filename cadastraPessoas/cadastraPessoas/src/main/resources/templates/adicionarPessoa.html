@@ -32,7 +32,8 @@
     <form
     method="POST"
     th:object="${pessoa}"
-    th:action=" @{/adicionarPessoa}">
+    th:action="@{/adicionarPessoa}"
+    >
 
     <p>Nome completo*: 
       <input type="text" placeholder="seu nome completo" th:field="*{nome}" required/>

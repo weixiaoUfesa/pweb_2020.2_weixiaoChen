@@ -46,7 +46,6 @@ public class PessoaController {
 	  public ModelAndView formAdicionarPessoa() {
 		  ModelAndView modelAndView= new ModelAndView("adicionarPessoa");
 		  modelAndView.addObject(new Pessoa());
-		  System.out.println ("caonima");
 		  return modelAndView;
 	
 	  }
@@ -57,19 +56,23 @@ public class PessoaController {
 		  String str=p.getTemp();
 		  DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		  LocalDate date = LocalDate.parse(str, fmt);
-		  
-		  
 		  p.setDataNascimento(date);
 		  this.pessoaRepo.save(p);
-		  return "redirect:/listarPessoas";
+		  return "redirect:/adicionadaComSucesso";
 	  }
-	  
 	  
 	  
 	  @GetMapping("/adicionadaComSucesso")
-	  public String adc() {
-		  return"adicionadaComSucesso.html";
+	  public ModelAndView AdicionarPessoacom() {
+		  ModelAndView modelAndView= new ModelAndView("adicionadaComSucesso");		
+		  return modelAndView;
+	
 	  }
+	  
+	  /*@GetMapping("/adicionadaComSucesso")
+	  public String adc() {
+		  return "adicionadaComSucesso.html";
+	  }*/
 	  
 	  @GetMapping("/remover/{id}")
 	  public ModelAndView removerPessoa(@PathVariable("id") long id) {
