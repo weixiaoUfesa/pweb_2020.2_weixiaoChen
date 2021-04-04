@@ -15,6 +15,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+/**
+ * @author c1459
+ *
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -33,6 +37,7 @@ public class Pessoa implements Serializable{
  private String  email;
  private String  genero;
  private LocalDate dataNascimento;
+ private String  temp;
  
  
  @Column(nullable = false)
@@ -66,6 +71,12 @@ public LocalDate getDataNascimento() {
 }
 public void setDataNascimento(LocalDate dataNascimento) {
 	this.dataNascimento = dataNascimento;
+}
+public String getTemp() {
+	return temp;
+}
+public void setTemp(String temp) {
+	this.temp = temp;
 }
  
  
