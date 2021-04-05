@@ -36,12 +36,14 @@ public class Pessoa implements Serializable{
  private String nome;
  private String  email;
  private String  genero;
- private LocalDate dataNascimento;
- private String  temp;
- 
  
  @Column(nullable = false)
  @DateTimeFormat(pattern = "yyyy-MM-dd")
+ private LocalDate dataNascimento;
+
+ 
+ 
+
 public String getGenero() {
 	return genero;
 }
@@ -72,12 +74,6 @@ public LocalDate getDataNascimento() {
 public void setDataNascimento(LocalDate dataNascimento) {
 	this.dataNascimento = dataNascimento;
 }
-public String getTemp() {
-	return temp;
-}
-public void setTemp(String temp) {
-	this.temp = temp;
-}
- 
+
  
 }

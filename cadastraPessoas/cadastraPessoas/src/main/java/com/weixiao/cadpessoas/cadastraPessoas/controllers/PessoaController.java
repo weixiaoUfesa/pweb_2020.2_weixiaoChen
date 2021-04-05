@@ -54,10 +54,6 @@ public class PessoaController {
 	  @PostMapping("/adicionarPessoa")
 	  public String adicionarPessoa(Pessoa p) {
 		 
-		  String str=p.getTemp();
-		  DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-		  LocalDate date = LocalDate.parse(str, fmt);
-		  p.setDataNascimento(date);
 		  this.pessoaRepo.save(p);
 		  return "redirect:/adicionadaComSucesso";
 	  }
@@ -82,11 +78,6 @@ public class PessoaController {
 	  }
 	  @PostMapping("/editarPessoa/{id}")
 	  public ModelAndView formEditarPessoa(@PathVariable("id") long id,Pessoa pessoa ) {
-		  
-		  String str=pessoa.getTemp();
-		  DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-		  LocalDate date = LocalDate.parse(str, fmt);
-		  pessoa.setDataNascimento(date);
 		  
 		  this.pessoaRepo.save(pessoa);
 		  return new ModelAndView("redirect:/listarPessoas");
