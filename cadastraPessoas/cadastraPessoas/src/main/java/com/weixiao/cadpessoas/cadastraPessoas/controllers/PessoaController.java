@@ -95,6 +95,6 @@ public class PessoaController {
 	  @PostMapping("/remover/{id}")
 	  public ModelAndView editarPessoa(@PathVariable("id") long id ,Pessoa pessoa) {
 		  this.pessoaRepo.save(pessoa);
-		  return new ModelAndView("redirect:/listarPessoas")
+		  return new ModelAndView("redirect:/listarPessoas");
 	  }
 }
