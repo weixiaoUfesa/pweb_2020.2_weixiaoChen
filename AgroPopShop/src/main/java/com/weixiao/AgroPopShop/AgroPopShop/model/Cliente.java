@@ -19,7 +19,8 @@ public class Cliente implements Serializable {
 	private String genero;
 	private String endereco;
 	private String eMail;
-	private String CEP;
+	private String CEP; 
+	private String salarioBruto;
 	public long getIdCliente() {
 		return idCliente;
 	}
@@ -58,6 +59,12 @@ public class Cliente implements Serializable {
 	}
 	public void setCEP(String cEP) {
 		CEP = cEP;
+	}
+	public String getSalarioBruto() {
+		return salarioBruto;
+	}
+	public void setSalarioBruto(String salarioBruto) {
+		this.salarioBruto = salarioBruto;
 	}
 
 
