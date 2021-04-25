@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href ="@{/css/index_style.css}" rel="stylesheet"/>
+  <meta name="secret-code" content="1736178040">
+<title>Início - Com Spring</title>
+</head>
+
+
+
+<div class="wrapper">
+  <ul>
+<li><a href="/">Início</a></li>
+<li>produto
+  <ul>
+    <li><a href="/adicionarProduto">Adicionar cliente</a></li>
+    <li><a href="/listarProdutos">Listar clientes</a></li>
+  </ul>
+</li>
+
+<li>Cliente
+  <ul>
+     <li><a href="/adicionarCliente">Adicionar produto</a></li>
+     <li><a href="/listarClientes">Listar produtos</a></li>
+  </ul>
+</li>
+
+<li>nada</li>
+<li>nada</li>
+</ul>
+</div>
+
+
+<div style="padding:1px 16px;height:1000px;">
+   <h1 style="font-size:40px;">Lista de clientes cadastrados</h1>
+
+   <h1>Lista de clientes</h1>
+   <table>
+     <thead>
+       <tr>
+       <th>id</th>
+       <th>Nome Completo</th>
+       <th>e-Mail</th>
+       <th>Gênero</th>
+       <th>endereço</th>
+       <th>CEP</th>
+       <th>Editar</th>
+       <th>Remover</th>
+       </tr>
+     </thead>
+     <tbody>  <!--${}:atributo,@{}:link-->
+        <tr th:each  ="cliente: ${clientes}">
+              <td th:text="${cliente.idCliente}"></td>
+              <td th:text="${cliente.nome}"></td>
+              <td>
+                <a th:href=" 'mailto: ' + ${cliente.eMail}" th:text="${cliente.eMail}" ></a>
+              </td>
+              <td th:text="${cliente.genero}" ></td>
+              <td th:text="${cliente.endereco}" ></td>
+              <td th:text="${cliente.CEP}" ></td>
+         
+              <td>
+                <a th:href="@{/editarCliente/{id}(id=${cliente.idCliente})}">Editar</a>
+              </td>
+              <td>
+                <a th:href="@{/remover/{id}(id=${cliente.idCliente})}">Remover</a>
+              </td>
+        </tr>
+        </tbody>
+     </table>
+</body>
+</html>

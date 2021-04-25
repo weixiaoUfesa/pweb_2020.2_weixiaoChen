@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href ="@{/css/index_style.css}" rel="stylesheet"/>
+  <meta name="secret-code" content="1736178040">
+<title>Início - Com Spring</title>
+</head>
+
+
+
+<div class="wrapper">
+  <ul>
+<li><a href="/">Início</a></li>
+<li>produto
+  <ul>
+    <li><a href="/adicionarProduto" >Adicionar produto</a></li>
+    <li><a href="/listarProdutos">Listar produtos</a></li>
+  </ul>
+</li>
+
+<li>Cliente
+  <ul>
+     <li><a href="/adicionarCliente" >Adicionar cliente</a></li>
+     <li><a href="/listarClientes">Listar clientes</a></li>
+  </ul>
+</li>
+
+<li>nada</li>
+<li>nada</li>
+</ul>
+</div>
+
+  <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+
+    <h1>Formulário para cadastro de clientes:</h1>
+    <form
+    method="POST"
+    th:object="${produto}"
+    th:action="@{/editarProduto/{id}(id=${produto.idProduto})}"
+    >
+
+    <p>Nome de produto*: 
+      <input type="text" placeholder="Nome de produto" th:field="*{nome}" required/>
+    </p>
+    
+    <P> marca*: 
+    <input type="text"placeholder="digitra marca" th:field="*{marca}" required/>
+    </P>
+
+    <P>
+        altura*: 
+        <input type="text"placeholder="digitra altura" th:field="*{altura}" required/>
+    </P>
+
+    <P>
+        largura*: 
+        <input type="text"placeholder="digitra largura" th:field="*{largura}" required/>
+    </P>
+
+    <P>
+        profundidade*: 
+        <input type="text"placeholder="digitra profundidade" th:field="*{profundidade}" required/>
+    </P>
+
+    <P>
+        peso*: 
+        <input type="text"placeholder="digitra peso" th:field="*{peso}" required/>
+    </P>
+
+    <P>
+        preço*: 
+        <input type="text"placeholder="digitra preço" th:field="*{preco}" required/>
+    </P>
+
+    
+    <input class="hh" type="reset" value="limpa">
+    <input class="hh" type="submit" value="cadastrar!">
+
+    </form>
+</div>
+
+</body>

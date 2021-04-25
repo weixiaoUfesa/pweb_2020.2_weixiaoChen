@@ -1,13 +1,5 @@
 package com.weixiao.cadpessoas.cadastraPessoas.controllers;
 
-import java.lang.ProcessBuilder.Redirect;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +45,9 @@ public class PessoaController {
 	  
 	  @PostMapping("/adicionarPessoa")
 	  public String adicionarPessoa(Pessoa p) {
-		 
+		  
 		  this.pessoaRepo.save(p);
-		  return "redirect:/adicionadaComSucesso";
+		  return "adicionadaComSucesso";
 	  }
 	  
 	  

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href ="@{/css/index_style.css}" rel="stylesheet"/>
+  <meta name="secret-code" content="1736178040">
+<title>Início - Com Spring</title>
+</head>
+
+
+
+<div class="wrapper">
+  <ul>
+<li><a href="/">Início</a></li>
+<li>produto
+  <ul>
+    <li><a href="/adicionarProduto" >Adicionar produto</a></li>
+    <li><a href="/listarProdutos">Listar produtos</a></li>
+  </ul>
+</li>
+
+<li>Cliente
+  <ul>
+     <li><a href="/adicionarCliente" >Adicionar cliente</a></li>
+     <li><a href="/listarClientes">Listar clientes</a></li>
+  </ul>
+</li>
+
+<li>nada</li>
+<li>nada</li>
+</ul>
+</div>
+
+
+<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+
+    <h1>Formulário para cadastro de clientes:</h1>
+    <form
+    method="POST"
+    th:object="${cliente}"
+    th:action="@{/editarCliente/{id}(id=${cliente.idCliente})}"
+    >
+
+    <p>Nome completo*: 
+      <input type="text" placeholder="seu nome completo" th:field="*{nome}" required/>
+    </p>
+    
+
+
+    <P>
+    e-Mail*: 
+    <input type="text"placeholder="nome@dominio.com" th:field="*{eMail}" required/>
+    </P>
+
+    <P> Gênero*: </P>
+    <p>
+      <input type="radio" name="genero" value="Masculino" th:field ="*{genero}"required/>Masculino
+    </p>
+
+    <p>
+      <input type="radio" name="genero" value="Feminino" th:field ="*{genero}"required/>Feminino
+    </p>
+
+    <p>
+      <input type="radio" name="genero" value="Não Informado" th:field ="*{genero}"required/>Não Informar
+    </p>
+    
+    <P>
+        endereço*: 
+        <input type="text"placeholder="digitra seu endereço" th:field="*{endereco}" required/>
+    </P>
+
+    <P>
+        CEP*: 
+        <input type="text"placeholder="digitra seu CEP" th:field="*{CEP}" required/>
+    </P>
+
+    
+    <input class="hh" type="reset" value="limpa">
+    <input class="hh" type="submit" value="cadastrar!">
+
+    </form>
+</div>
+
+</body>
+</html>
