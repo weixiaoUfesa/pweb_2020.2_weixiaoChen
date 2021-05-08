@@ -33,55 +33,46 @@
 </ul>
 </div>
 
-
-<div style="margin-left:25%;padding:1px 16px;height:1000px;">
-
-  
+  <div style="margin-left:25%;padding:1px 16px;height:1000px;">
 
     <h1>Formulário para cadastro de clientes:</h1>
     <form
     method="POST"
-    th:object="${cliente}"
-    th:action="@{/adicionarCliente}"
+    th:object="${produto}"
+    th:action="@{/editarProduto/{id}(id=${produto.idProduto})}"
     >
 
-    <p>Nome completo*: 
-      <input type="text" placeholder="seu nome completo" th:field="*{nome}" required/>
+    <p>Nome de produto*: 
+      <input type="text" placeholder="Nome de produto" th:field="*{nome}" required/>
     </p>
     
-
-
-    <P>
-    e-Mail*: 
-    <input type="text"placeholder="nome@dominio.com" th:field="*{eMail}" required/>
-    </P>
-
-    <P> Gênero*: </P>
-    <p>
-      <input type="radio" name="genero" value="Masculino" th:field ="*{genero}"required/>Masculino
-    </p>
-
-    <p>
-      <input type="radio" name="genero" value="Feminino" th:field ="*{genero}"required/>Feminino
-    </p>
-
-    <p>
-      <input type="radio" name="genero" value="Não Informado" th:field ="*{genero}"required/>Não Informar
-    </p>
-    
-    <P>
-        endereço*: 
-        <input type="text"placeholder="digitra seu endereço" th:field="*{endereco}" required/>
+    <P> marca*: 
+    <input type="text"placeholder="digitra marca" th:field="*{marca}" required/>
     </P>
 
     <P>
-        CEP*: 
-        <input type="text"placeholder="digitra seu CEP" th:field="*{CEP}" required/>
+        altura*: 
+        <input type="text"placeholder="digitra altura" th:field="*{altura}" required/>
     </P>
 
     <P>
-      salário bruto*: 
-      <input type="text"placeholder="digitra salário bruto" th:field="*{salarioBruto}" required/>
+        largura*: 
+        <input type="text"placeholder="digitra largura" th:field="*{largura}" required/>
+    </P>
+
+    <P>
+        profundidade*: 
+        <input type="text"placeholder="digitra profundidade" th:field="*{profundidade}" required/>
+    </P>
+
+    <P>
+        peso*: 
+        <input type="text"placeholder="digitra peso" th:field="*{peso}" required/>
+    </P>
+
+    <P>
+        preço*: 
+        <input type="text"placeholder="digitra preço" th:field="*{preco}" required/>
     </P>
 
     
@@ -92,4 +83,3 @@
 </div>
 
 </body>
-</html>

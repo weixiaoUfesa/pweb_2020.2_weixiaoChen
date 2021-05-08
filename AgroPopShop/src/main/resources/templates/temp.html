@@ -17,14 +17,14 @@
 <li>produto
   <ul>
     <li><a href="/adicionarProduto">Adicionar cliente</a></li>
-    <li><a href="/listarProdutos">Listar produtos </a></li>
+    <li><a href="/listarProdutos">Listar clientes</a></li>
   </ul>
 </li>
 
 <li>Cliente
   <ul>
      <li><a href="/adicionarCliente">Adicionar produto</a></li>
-     <li><a href="/listarClientes">Listar produtos Listar clientes</a></li>
+     <li><a href="/listarClientes">Listar produtos</a></li>
   </ul>
 </li>
 
@@ -34,14 +34,10 @@
 </div>
 
 
-  
-
 <div style="padding:1px 16px;height:1000px;">
-  <body>
+   <h1 style="font-size:40px;"> adicionarDependente</h1>
 
-   <h1 style="font-size:40px;">Lista de clientes cadastrados</h1>
-
-   <h1>Lista de clientes</h1>
+   <h1>adicionarDependente</h1>
    <table>
      <thead>
        <tr>
@@ -54,8 +50,8 @@
        <th>Salário bruto</th>
        <th>Editar</th>
        <th>Remover</th>
-       <th>lista dependentes</th>
-
+       <th>adicionarDependente</th>
+ 
        </tr>
      </thead>
      <tbody>  <!--${}:atributo,@{}:link-->
@@ -77,9 +73,51 @@
                 <a th:href="@{/remover/{id}(id=${cliente.idCliente})}">Remover</a>
               </td>
 
-              <td>            
-                <a th:href="@{/listarDependentes/{id}(id=${cliente.idCliente})}">lista dependente</a>
+              <td>
+                <form
+    method="POST"
+    th:object="${dependente}"
+    th:action="@{/adicionarDependente/{id}(id=${cliente.idCliente})}"
+    >
+
+
+  
+
+    <p>Nome completo*: 
+      <input type="text" placeholder="seu nome completo" th:field="*{nome}" required/>
+    </p>
+
+
+    <p>
+        Data de Nascimento*:
+       <input type="date" placeholder="data" th:field="*{dataNascimento}" required/>
+    </p>
+    
+
+    <P> Gênero*: </P>
+    <p>
+      <input type="radio" name="genero" value="Masculino" th:field ="*{genero}"required/>Masculino
+    </p>
+
+    <p>
+      <input type="radio" name="genero" value="Feminino" th:field ="*{genero}"required/>Feminino
+    </p>
+
+    <p>
+      <input type="radio" name="genero" value="Não Informado" th:field ="*{genero}"required/>Não Informar
+    </p>
+    
+  
+  
+    
+    <input class="hh" type="reset" value="limpa">
+    <input class="hh" type="submit" value="cadastrar!">
+
+    </form>
+
+
               </td>
+
         </tr>
         </tbody>
      </table>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6c1fe85f-d135-451a-b42a-7488b80de88a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/java/com/weixiao/AgroPopShop/AgroPopShop/controllers/clienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/java/com/weixiao/AgroPopShop/AgroPopShop/controllers/clienteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/java/com/weixiao/AgroPopShop/AgroPopShop/model/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/java/com/weixiao/AgroPopShop/AgroPopShop/model/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/java/com/weixiao/AgroPopShop/AgroPopShop/model/Produto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/java/com/weixiao/AgroPopShop/AgroPopShop/model/Produto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/java/com/weixiao/AgroPopShop/AgroPopShop/repositories/ClienteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/java/com/weixiao/AgroPopShop/AgroPopShop/repositories/ClienteRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/java/com/weixiao/AgroPopShop/AgroPopShop/repositories/ProdutoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/java/com/weixiao/AgroPopShop/AgroPopShop/repositories/ProdutoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/static/css/index_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/static/css/index_style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/adicionarCliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/adicionarCliente.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/adicionarProduto.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/adicionarProduto.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/cadastrarComSucesso.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/cadastrarComSucesso.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/editarCliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/editarCliente.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/editarProduto.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/editarProduto.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/listarClientes.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/listarClientes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/listarProdutos.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../AgroPopShop/src/main/resources/templates/listarProdutos.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1sBly2O0lWRtMeyUb5yI40QBOM8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6c1fe85f-d135-451a-b42a-7488b80de88a" name="Default Changelist" comment="" />
+      <created>1620354152505</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620354152505</updated>
+      <workItem from="1620354161125" duration="44000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

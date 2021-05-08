@@ -1,10 +1,17 @@
 package com.weixiao.AgroPopShop.AgroPopShop.model;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +28,24 @@ public class Cliente implements Serializable {
 	private String eMail;
 	private String CEP; 
 	private String salarioBruto;
+	
+	@OneToMany(targetEntity = Pedido.class,mappedBy = "cliente",
+			   fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	
+	private Set<Pedido> pedidos;
+	
+	@OneToMany(targetEntity = Dependente.class,mappedBy = "cliente",
+			   fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	
+	private Set<Dependente> dependetes;
+	
+	 
+	public Set<Pedido> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 	public long getIdCliente() {
 		return idCliente;
 	}

@@ -1,0 +1,143 @@
+/***********注意：只是在适当的位置根据提示填写代码，请不要删除现有代码**********/
+
+/***********BEGIN:删除现存订单数据库**********/
+use master
+go
+if exists(select * from sysdatabases WHERE name = 'orderdb')
+drop database orderdb
+go
+
+/***********END:删除现存订单数据库**********/
+
+/*****TODO: 请在下面创建名为orderdb的订单数据库*******************/
+/*   该订单数据库的数据文件具体描述如下
+     name='orderdb_data',  -- 主数据文件的逻辑名称
+     filename='/home/orderdb_data.mdf', -- 主数据文件的物理名称
+     size=5mb, --主数据文件的初始大小
+     maxsize=100mb, -- 主数据文件增长的最大值
+     filegrowth=15%--主数据文件的增长率
+
+	 该订单数据库的日志文件具体描述为
+	 name='orderdb_log',
+     filename='/home/orderdb_log.ldf',
+     size=2mb,
+     filegrowth=1mb
+*/
+/*******************BEGIN:创建订单数据库**********************/
+create database orderdb
+on primary
+(
+	name='orderdb_data',
+	filename='/home/orderdb_date.mdf',
+	size=5mb,
+	maxsize=100mb,
+	filegrowth=15%
+)
+log on
+(
+	name='orderdb_log',
+	filename='/home/orderdb_log.ldf',
+	size=2mb,
+	filegrowth=1mb
+)
+/*********************END:订单数据库orderdb创建结束 *******************/
+
+/********************  支持中文 **********************/
+ALTER DATABASE orderdb SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+go
+ALTER DATABASE orderdb COLLATE Chinese_PRC_90_CI_AS
+go
+ALTER DATABASE orderdb SET MULTI_USER
+go
+
+
+/********使返回的结果中不包含有关受 Transact-SQL 语句影响的行数的信息*********/
+SET NOCOUNT ON
+go
+
+/************************使用orderdb*********************/
+USE orderdb
+go
+
+/***************TODO: 请在下面创建5张数据表************************/
+/*
+例子1：订单表
+create table  订单
+(
+订单编号 char(4) ,
+订货日期 smalldatetime ,
+客户编号 char(4),
+primary key(订单编号),--在表级定义实体完整性
+foreign key(客户编号) references 客户(客户编号)--在表级定义参照完整性
+)
+go
+*/
+/**************BEGIN:创建数据表**************/
+/*TODO:1、创建名为代理商的数据表*/
+create table 代理商
+(
+	代理商编号 char(4),
+	姓名 nvarchar(10),
+	地址 nvarchar(20),
+	邮政编码 char(6),
+	提成金额 smallmoney,
+	提成比例 tinyint, 
+	primary key(代理商编号)
+)
+go
+
+/*TODO:2、创建名为客户的数据表*/
+
+create table 客户
+(
+	客户编号  char(4),
+	姓名 nvarchar(10),
+	地址 nvarchar(20),
+	邮政编码 char(6),
+	收支差额 smallmoney,
+	贷款限额 smallmoney,
+	代理商编号 char(4),
+	primary key(客户编号),
+	foreign key(代理商编号) references 代理商(代理商编号)
+
+)
+go
+/*TODO:3、创建名为产品的数据表*/
+create table 产品 
+(
+	产品编号 char(4),
+	描述信息 nvarchar(20),
+	库存量 int,
+	类别 tinyint,
+	仓库编号 char(4),
+	价格 smallmoney,
+	primary key(产品编号)
+)
+go
+
+/*TODO:4、创建名为订单的数据表*/
+create table 订单
+(
+	订单编号 char(4),
+	订货日期 smalldatetime,
+	客户编号 char(4),
+	primary key(订单编号) ,
+	foreign key(客户编号) references 客户(客户编号)
+)
+go
+
+/*TODO:5、创建名为订货项目的数据表*/
+
+create table 订货项目
+(
+	订单编号 char(4),
+	产品编号 char(4),
+	订购数量 smallint,
+	订购单价 smallmoney,
+	foreign key(订单编号) references 订单(订单编号)
+
+)
+go
+————————————————
+版权声明：本文为CSDN博主「九枭」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_42877870/article/details/105238541

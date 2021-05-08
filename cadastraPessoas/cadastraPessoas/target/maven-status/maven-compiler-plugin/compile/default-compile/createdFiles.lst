@@ -1,0 +1,4 @@
+com\weixiao\cadpessoas\cadastraPessoas\model\Pessoa.class
+com\weixiao\cadpessoas\cadastraPessoas\repositories\PessoaRepository.class
+com\weixiao\cadpessoas\cadastraPessoas\controllers\PessoaController.class
+com\weixiao\cadpessoas\cadastraPessoas\CadastraPessoasApplication.class

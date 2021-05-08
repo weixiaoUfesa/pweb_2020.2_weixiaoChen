@@ -1,11 +1,15 @@
 package com.weixiao.AgroPopShop.AgroPopShop.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +19,12 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProduto;
+	public Set<ItemPedido> getItemPedidos() {
+		return itemPedidos;
+	}
+	public void setItemPedidos(Set<ItemPedido> itemPedidos) {
+		this.itemPedidos = itemPedidos;
+	}
 	private String nome;
 	private String marca;
 	private String altura;
@@ -22,6 +32,11 @@ public class Produto implements Serializable {
 	private String profundidade;
 	private String peso;
 	private String preco;
+	
+	@OneToMany(targetEntity = ItemPedido.class,mappedBy = "produto",
+			   fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+
+	private Set<ItemPedido> itemPedidos;
 	public long getIdProduto() {
 		return idProduto;
 	}

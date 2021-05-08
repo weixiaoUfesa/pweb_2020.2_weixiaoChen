@@ -36,13 +36,11 @@
 
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
 
-  
-
     <h1>Formulário para cadastro de clientes:</h1>
     <form
     method="POST"
     th:object="${cliente}"
-    th:action="@{/adicionarCliente}"
+    th:action="@{/editarCliente/{id}(id=${cliente.idCliente})}"
     >
 
     <p>Nome completo*: 
@@ -83,7 +81,6 @@
       salário bruto*: 
       <input type="text"placeholder="digitra salário bruto" th:field="*{salarioBruto}" required/>
     </P>
-
     
     <input class="hh" type="reset" value="limpa">
     <input class="hh" type="submit" value="cadastrar!">

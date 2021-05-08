@@ -9,7 +9,7 @@
 <title>Início - Com Spring</title>
 </head>
 
-
+<body>
 
 <div class="wrapper">
   <ul>
@@ -34,27 +34,36 @@
 </div>
 
 
+
+
+
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
 
-  
 
-    <h1>Formulário para cadastro de clientes:</h1>
+    <h1>Formulário para cadastro de dependentes:</h1>
     <form
     method="POST"
-    th:object="${cliente}"
-    th:action="@{/adicionarCliente}"
+    th:object="${dependente}"
+    
+    
+    th:action="@{/adicionarDependente}"
     >
+
+
+  
 
     <p>Nome completo*: 
       <input type="text" placeholder="seu nome completo" th:field="*{nome}" required/>
     </p>
+
+
+
+
+    <p>
+        Data de Nascimento*:
+       <input type="date" placeholder="data" th:field="*{dataNascimento}" required/>
+    </p>
     
-
-
-    <P>
-    e-Mail*: 
-    <input type="text"placeholder="nome@dominio.com" th:field="*{eMail}" required/>
-    </P>
 
     <P> Gênero*: </P>
     <p>
@@ -69,27 +78,19 @@
       <input type="radio" name="genero" value="Não Informado" th:field ="*{genero}"required/>Não Informar
     </p>
     
-    <P>
-        endereço*: 
-        <input type="text"placeholder="digitra seu endereço" th:field="*{endereco}" required/>
-    </P>
-
-    <P>
-        CEP*: 
-        <input type="text"placeholder="digitra seu CEP" th:field="*{CEP}" required/>
-    </P>
-
-    <P>
-      salário bruto*: 
-      <input type="text"placeholder="digitra salário bruto" th:field="*{salarioBruto}" required/>
-    </P>
-
+  
+  
     
     <input class="hh" type="reset" value="limpa">
     <input class="hh" type="submit" value="cadastrar!">
 
     </form>
+    
 </div>
+
+
+
+
 
 </body>
 </html>

@@ -47,39 +47,34 @@
        <tr>
        <th>id</th>
        <th>Nome Completo</th>
-       <th>e-Mail</th>
+     
        <th>Gênero</th>
-       <th>endereço</th>
-       <th>CEP</th>
-       <th>Salário bruto</th>
+       <th> Data de Nascimento*:</th>
+    
+     
        <th>Editar</th>
        <th>Remover</th>
-       <th>lista dependentes</th>
+      
 
        </tr>
      </thead>
      <tbody>  <!--${}:atributo,@{}:link-->
-        <tr th:each  ="cliente: ${clientes}">
-              <td th:text="${cliente.idCliente}"></td>
-              <td th:text="${cliente.nome}"></td>
-              <td>
-                <a th:href=" 'mailto: ' + ${cliente.eMail}" th:text="${cliente.eMail}" ></a>
-              </td>
-              <td th:text="${cliente.genero}" ></td>
-              <td th:text="${cliente.endereco}" ></td>
-              <td th:text="${cliente.CEP}" ></td>
-              <td th:text="${cliente.salarioBruto}" ></td>
+                                       
+        <tr th:each  ="dependente: ${dependentes}"> 
+                                   
+              <td th:text="${dependente.idDependente}"></td>
+              <td th:text="${dependente.nome}"></td>
+              <td th:text="${dependente.genero}" ></td>
+              <td th:text="${dependente.dataNascimento}" ></td>
+            
          
               <td>
-                <a th:href="@{/editarCliente/{id}(id=${cliente.idCliente})}">Editar</a>
+                <a th:href="@{/editarDependente/{id}(id=${dependente.idDependente})}">Editar</a>
               </td>
               <td>
-                <a th:href="@{/remover/{id}(id=${cliente.idCliente})}">Remover</a>
+                <a th:href="@{/removerDependente/{id}(id=${dependente.idDependente})}">Remover</a>
               </td>
 
-              <td>            
-                <a th:href="@{/listarDependentes/{id}(id=${cliente.idCliente})}">lista dependente</a>
-              </td>
         </tr>
         </tbody>
      </table>

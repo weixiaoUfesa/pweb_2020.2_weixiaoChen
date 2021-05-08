@@ -17,14 +17,14 @@
 <li>produto
   <ul>
     <li><a href="/adicionarProduto">Adicionar cliente</a></li>
-    <li><a href="/listarProdutos">Listar produtos </a></li>
+    <li><a href="/listarProdutos">Listar clientes</a></li>
   </ul>
 </li>
 
 <li>Cliente
   <ul>
      <li><a href="/adicionarCliente">Adicionar produto</a></li>
-     <li><a href="/listarClientes">Listar produtos Listar clientes</a></li>
+     <li><a href="/listarClientes">Listar produtos</a></li>
   </ul>
 </li>
 
@@ -34,11 +34,7 @@
 </div>
 
 
-  
-
 <div style="padding:1px 16px;height:1000px;">
-  <body>
-
    <h1 style="font-size:40px;">Lista de clientes cadastrados</h1>
 
    <h1>Lista de clientes</h1>
@@ -54,8 +50,6 @@
        <th>Salário bruto</th>
        <th>Editar</th>
        <th>Remover</th>
-       <th>lista dependentes</th>
-
        </tr>
      </thead>
      <tbody>  <!--${}:atributo,@{}:link-->
@@ -75,10 +69,6 @@
               </td>
               <td>
                 <a th:href="@{/remover/{id}(id=${cliente.idCliente})}">Remover</a>
-              </td>
-
-              <td>            
-                <a th:href="@{/listarDependentes/{id}(id=${cliente.idCliente})}">lista dependente</a>
               </td>
         </tr>
         </tbody>
