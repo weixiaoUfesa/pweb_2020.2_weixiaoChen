@@ -9,6 +9,8 @@
 <title>Início - Com Spring</title>
 </head>
 
+<body>
+  
 
 
 <div class="wrapper">
@@ -33,9 +35,12 @@
 </ul>
 </div>
 
+
+
+
 <div style="padding:1px 16px;height:1000px;">
   
-  <h1>Lista de produtos</h1>
+  
   <table>
     <thead>
 
@@ -53,8 +58,10 @@
       <th>Editar</th>
       <th>Remover</th>
       <th>add</th>
-produto.id 
-      
+
+             
+            
+
       </tr>
     </thead>
     <tbody>  <!--${}:atributo,@{}:link-->
@@ -77,11 +84,13 @@ produto.id
                 <form
                 method="POST"
                 th:object="${itemPedido}"
-                
-                th:action="@{/adicionarNoPedido/{id}(id=${produto.idProduto})}"
+                                                                      
+                th:action="@{/adicionarNoPedido/{id1}/{id2}
+                (id1=${idPedido},id2=${produto.idProduto})}"
+
                 >
               
-            
+              
                 <p>quantidade*: 
                   <input type="text" placeholder="quantidade" th:field="*{quantidade}" required/>
                 </p>
@@ -91,11 +100,18 @@ produto.id
 
                 </form>
             </td>
-
+                         
+          
 
        </tr>
-
-       <h1>Formulário para cadastro de produtos:</h1>
+       <form
+       method="POST"
+       th:action="@{/confirmarPedido/{id1}(id1=${idPedido})}"
+       >
+     
+       <input class="hh" type="submit" value="confirmar seu Pedido">
+      </form>
+       <h1>Lista de produtos,adicione produtos no seu pedido</h1>
    
        </tbody>
     </table>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href ="@{/css/index_style.css}" rel="stylesheet"/>
+  <meta name="secret-code" content="1965684192">
+<title>Início - Com Spring</title>
+</head>
+
+<body>
+  
+
+
+<div class="wrapper">
+  <ul>
+<li><a href="/">Início</a></li>
+<li>produto
+  <ul>
+    <li><a href="/adicionarProduto" >Adicionar produto</a></li>
+    <li><a href="/listarProdutos">Listar produto</a></li>
+  </ul>
+</li>
+
+<li>Cliente
+  <ul>
+     <li><a href="/adicionarCliente" >Adicionar cliente</a></li>
+     <li><a href="/listarClientes">Listar clientes</a></li>
+  </ul>
+</li>
+
+<li>nada</li>
+<li>nada</li>
+</ul>
+</div>
+
+
+
+<div style="padding:1px 16px;height:1000px;">
+    <h1>Lista de produtos do seu pedido ,
+        valor total: <td th:text="${total}" ></td>reais ,
+        imposto:<td th:text="${imposto}" ></td>reais .
+    </h1>
+    <form
+    method="POST"
+    th:action="@{/confirmarPedido/{id1}(id1=${idPedido})}"
+    >
+  
+    <input class="hh" type="submit" value="realizar pagamento ">
+   </form>
+
+</div>
+ 
+<div>
+
+
+  
+  <table>
+    <thead>
+
+    
+
+      <tr>
+      <th>id</th>
+      <th>Nome</th>
+      <th>marca</th>
+      <th>altura</th>
+      <th>largura</th>
+      <th>profundidade</th>
+      <th>peso</th>
+      <th>preço</th>
+      <th>quantidade</th>
+    
+
+             
+            
+
+      </tr>
+    </thead>
+    <tbody>  <!--${}:atributo,@{}:link-->
+       <tr th:each  ="map: ${produtos}">
+             <td th:text="${map.key.idProduto}"></td>
+             <td th:text="${map.key.nome}"></td>
+             <td th:text="${map.key.marca}" ></td>
+             <td th:text="${map.key.altura}" ></td>
+             <td th:text="${map.key.largura}" ></td>
+             <td th:text="${map.key.profundidade}" ></td>
+             <td th:text="${map.key.peso}" ></td> 
+             <td th:text="${map.key.preco}" ></td> 
+             <td th:text="${map.value}" ></td> 
+             <td>
+    
+            </td>
+                         
+          
+
+       </tr>
+  
+
+
+       
+      
+
+   
+       </tbody>
+    </table>
+</div>
+</body>
+
+</html>

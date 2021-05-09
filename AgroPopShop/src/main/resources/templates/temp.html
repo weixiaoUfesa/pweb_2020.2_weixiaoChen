@@ -43,14 +43,11 @@
        <tr>
        <th>id</th>
        <th>Nome Completo</th>
-       <th>e-Mail</th>
-       <th>Gênero</th>
-       <th>endereço</th>
-       <th>CEP</th>
-       <th>Salário bruto</th>
+      
        <th>Editar</th>
        <th>Remover</th>
-       <th>adicionarDependente</th>
+       <th>Adicionar Dependente</th>
+       <th>Cadastrar Pedido</th>
  
        </tr>
      </thead>
@@ -58,13 +55,7 @@
         <tr th:each  ="cliente: ${clientes}">
               <td th:text="${cliente.idCliente}"></td>
               <td th:text="${cliente.nome}"></td>
-              <td>
-                <a th:href=" 'mailto: ' + ${cliente.eMail}" th:text="${cliente.eMail}" ></a>
-              </td>
-              <td th:text="${cliente.genero}" ></td>
-              <td th:text="${cliente.endereco}" ></td>
-              <td th:text="${cliente.CEP}" ></td>
-              <td th:text="${cliente.salarioBruto}" ></td>
+              
          
               <td>
                 <a th:href="@{/editarCliente/{id}(id=${cliente.idCliente})}">Editar</a>
@@ -116,6 +107,67 @@
     </form>
 
 
+              </td>
+
+              <td>
+                <form
+                method="POST"
+                th:object="${pedido}"
+                th:action="@{/cadastrarPedido/{id}(id=${cliente.idCliente})}"
+                >
+            
+            
+              
+            
+                <p>
+                  Forma de Pagamento*:
+             
+              </p>
+            
+
+
+              <p>
+                <input type="radio" name="genero" value="dinheiro" th:field ="*{formaDePagamento}"required/>dinheiro 
+              </p>
+          
+              <p>
+                <input type="radio" name="genero" 
+                value="cartaoDeCredito" th:field ="*{formaDePagamento}"required/> cartão de crédito
+              </p>
+
+            
+                <p>
+                    Data de Pedido*:
+                   <input type="date" placeholder="data" th:field="*{dataPedido}" required/>
+                </p>
+                
+            
+         
+                
+              
+              
+                
+                <input class="hh" type="reset" value="limpa">
+                <input class="hh" type="submit" value="fazerPedido!">
+            
+                </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
               </td>
 
         </tr>

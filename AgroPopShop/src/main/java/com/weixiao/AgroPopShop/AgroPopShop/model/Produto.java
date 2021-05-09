@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @Table(name="Produtos")
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 6178098803459551807L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProduto;
@@ -88,6 +89,9 @@ public class Produto implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	
+	
 
 	
 	

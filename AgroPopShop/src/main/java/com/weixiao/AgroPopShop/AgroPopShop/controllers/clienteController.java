@@ -1,8 +1,11 @@
 package com.weixiao.AgroPopShop.AgroPopShop.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import org.postgresql.translation.messages_bg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.weixiao.AgroPopShop.AgroPopShop.model.Cliente;
 import com.weixiao.AgroPopShop.AgroPopShop.model.Dependente;
 import com.weixiao.AgroPopShop.AgroPopShop.model.ItemPedido;
@@ -113,6 +116,7 @@ public ModelAndView temp() {
 	 ModelAndView mav =new ModelAndView("temp");
     mav.addObject(new Dependente());
 	mav.addObject("clientes",lista.get(lista.size()-1));
+	mav.addObject(new Pedido());
 	return mav;
 		}
 
@@ -198,7 +202,7 @@ public String adicionarProduto(Produto P) {
 //exibir
 @GetMapping("/listarProdutos")
 public ModelAndView listarProdutos() {
-		 List<Produto> lista = produtoRepo.findAll();
+		 List<Produto> lista = produtoRepo.findAllByOrderByNomeAsc();
 		 ModelAndView mav =new ModelAndView("listarProdutos");
 				 mav.addObject("produtos",lista);
 				 return mav;
@@ -232,27 +236,127 @@ public ModelAndView removerProduto(@PathVariable("id") long id) {
 }
 
 //exibirpaginaDecomprara
-@GetMapping("/paginaComprar")
-public ModelAndView paginaComprar() {
-		 List<Produto> lista = produtoRepo.findAll();
+@RequestMapping("/paginaComprar/{id}")
+public ModelAndView paginaComprar(@PathVariable("id") long id) {
+		 List<Produto> lista = produtoRepo.findAllByOrderByNomeAsc();
 		 ModelAndView mav =new ModelAndView("paginaComprar");
 				 mav.addObject("produtos",lista);
-				 mav.addObject(new ItemPedido());
+				 
+				
+				 Optional<Cliente> cliente1=clienteRepo.findById(id);
+				 Cliente cliente = cliente1.get();
+				
+				 Pedido pedido1 =pedidoRepo.findByCliente(cliente);
+			    
+				
+				 ItemPedido novoItempedido	= new ItemPedido();
+				 
+			     novoItempedido.setPedido(pedido1);
+			     this.iPRepo.save(novoItempedido);
+				 
+				mav.addObject(new ItemPedido());
+				
+			    long idPedido= pedido1.getIdPedido();
+				
+				mav.addObject("idPedido", idPedido);
 				 return mav;
+				 
 				 }
+
+
+//cadastrar_Pedido
+@PostMapping("/cadastrarPedido/{id}")
+public ModelAndView cadastrarPedido(@PathVariable("id") long id,Pedido P) {
+
+	  Cliente add=clienteRepo.findById(id)
+			  .orElseThrow(()->new IllegalArgumentException("id inválido:"+id));
+	 P.setCliente(add);
+	 pedidoRepo.save(P);
+	 P.getIdPedido();
+     long idnovo=P.getIdPedido();
+     
+    
+     String string = String.format("redirect:/paginaComprar/%o", idnovo);
+     
+	  return new ModelAndView(string);
+	}
+
+
 //add
 
-@PostMapping("/adicionarNoPedido/{id}")
-public ModelAndView formEditarProduto(@PathVariable("id") long id,ItemPedido I )
+@PostMapping("/adicionarNoPedido/{id1}/{id2}")
+public ModelAndView adicionarProduto(@PathVariable("id1") long id1,@PathVariable("id2") long id2, ItemPedido itemPedido)
 {
-	 Produto add=produtoRepo.findById(id)
-			  .orElseThrow(()->new IllegalArgumentException("id inválido:"+id));
-	 I.setProduto(add);	
+	Optional<Produto> OPprodutro=produtoRepo.findById(id2);
+     Produto produto=OPprodutro.get();//produto
+     
+     //Optional<Pedido> pedido1=pedidoRepo.findById(id1);
+     //Pedido pedido =pedido1.get();  
+     
+     //itemPedido.setPedido(pedido);
+     //itemPedido.setProduto(produto);
+    
+     //ItemPedido addItemPedido=iPRepo.findByPedido(pedido);
+     ItemPedido addItemPedido=iPRepo.findTopByOrderByIdItemPedidoDesc();
+     long idVelho=addItemPedido.getIdItemPedido();
+     
+     addItemPedido.setQuantidade(itemPedido.getQuantidade());
+     addItemPedido.setProduto(produto);	
+     addItemPedido.setValorUnidade(produto.getPreco());
+     addItemPedido.setIdItemPedido(idVelho);
+     this.iPRepo.save(addItemPedido);
+     //itemPedido.getIdItemPedido();
+     //this.iPRepo.save(itemPedido);
+	 
+	 return new ModelAndView("redirect:/paginaComprar/{id1}");}
+//Exibir_Pedidos.
+@PostMapping("/confirmarPedido/{id1}")public ModelAndView confirmarPedido(@PathVariable("id1") long id1)
+{   
 	
-	 I.setValorUnidade(add.getPreco());
-	 this.iPRepo.save(I);
-	 return new ModelAndView("redirect:/paginaComprar");
+	Optional<Pedido> OpPedido=pedidoRepo.findById(id1);
+	List<ItemPedido> ItemPedidos= iPRepo.findByPedido(OpPedido.get());
+	List<Produto> lista = produtoRepo.findByItemPedidosIn(ItemPedidos);
+    //List<Produto> lista = produtoRepo.findAll();
+	 ModelAndView mav =new ModelAndView("confirmarPedido");
+	//mav.addObject("produtos",lista);
+	         int total=0;
+	         double taxa=0.225;
+			 mav.addObject("produtos",lista);
+			 Map<Produto,Integer> map = new HashMap<>();
+			 for (int i=0;i<lista.size();i++){
+			 map.put(lista.get(i),ItemPedidos.get(i).getQuantidade());
+			 total=total+Integer.parseInt(lista.get(i).getPreco())*ItemPedidos.get(i).getQuantidade();}
+			 mav.addObject("produtos",map);
+			 mav.addObject("total",total);
+			 mav.addObject("imposto",(total*taxa));
+			 //Optional<Cliente> cliente1=clienteRepo.findById(id1);
+			// Cliente cliente = cliente1.get();
+			
+			// Pedido pedido1 =pedidoRepo.findByCliente(cliente);
+		    
+			
+			 //ItemPedido novoItempedido	= new ItemPedido();
+			 
+		     //novoItempedido.setPedido(pedido1);
+		     //this.iPRepo.save(novoItempedido);
+			 
+			//mav.addObject(new ItemPedido());
+			
+		    //long idPedido= pedido1.getIdPedido();
+			
+			//mav.addObject("idPedido", idPedido);
+			 return mav;
+			 
+			 
+
+
 }
+
+		
+		
+		              
+
+
 
 
 }
