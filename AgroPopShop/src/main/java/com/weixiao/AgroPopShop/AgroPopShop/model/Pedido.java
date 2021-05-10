@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,20 +27,24 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idPedido;
-	
+	private boolean situacaoPagamento=false;
+	private String cartao; 
+
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
 	
 	@OneToMany(targetEntity = ItemPedido.class,mappedBy = "pedido",
 			   fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-
 	private Set<ItemPedido> itemPedidos;
 
 	@Column(nullable = false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate dataPedido;
 	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn(name = "idVenda", referencedColumnName = "idPedido")
+	private Venda venda;
     private String formaDePagamento;
 	public long getIdPedido() {
 		return idPedido;
@@ -79,6 +85,31 @@ public class Pedido implements Serializable {
 	public void setFormaDePagamento(String formaDePagamento) {
 		this.formaDePagamento = formaDePagamento;
 	}
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+
+	public boolean isSituacaoPagamento() {
+		return situacaoPagamento;
+	}
+
+	public void setSituacaoPagamento(boolean situacaoPagamento) {
+		this.situacaoPagamento = situacaoPagamento;
+	}
+
+	public String getCartao() {
+		return cartao;
+	}
+
+	public void setCartao(String cartao) {
+		this.cartao = cartao;
+	}
+	
 	
 	
    

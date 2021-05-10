@@ -47,20 +47,7 @@
 
 
 
-<div style="padding:1px 16px;height:170px;">
-    <h1>Lista de produtos do seu pedido ,
-        valor total: <td th:text="${total}" ></td>reais ,
-        imposto:<td th:text="${imposto}" ></td>reais .
-    </h1>
-    <form
-    method="POST"
-    th:action="@{/realizarPagamento/{id1}(id1=${idPedido})}"
-    >
-  
-    <input class="hh" type="submit" value="realizar pagamento ">
-   </form>
 
-</div>
  
 <div style="padding:1px 16px;height:1000px;">
 
@@ -69,44 +56,25 @@
   <table>
     <thead>
 
-    
+      
 
       <tr>
       <th>id</th>
       <th>Nome</th>
-      <th>marca</th>
-      <th>altura</th>
-      <th>largura</th>
-      <th>profundidade</th>
-      <th>peso</th>
       <th>preço</th>
       <th>quantidade</th>
-      <th>editar</th>
-      <th>remover</th>
+ 
     
 
 
       </tr>
     </thead>
     <tbody>  <!--${}:atributo,@{}:link-->
-      <tr th:each  ="map : ${map}">
+      <tr th:each  ="map : ${vendas}">
         <td th:text="${map.value.idProduto}"></td>
         <td th:text="${map.value.nome}"></td>
-        <td th:text="${map.value.marca}" ></td>
-        <td th:text="${map.value.altura}" ></td>
-        <td th:text="${map.value.largura}" ></td>
-        <td th:text="${map.value.profundidade}" ></td>
-        <td th:text="${map.value.peso}" ></td> 
         <td th:text="${map.value.preco}" ></td> 
-        <td th:text="${map.key.quantidade}">quantidade</td>                    
-        <td>
-           <a th:href="@{/editarPedido/{id}(id=${map.key.idItemPedido})}">Editar</a>
-        </td>
-
-        <td>
-           <a th:href="@{/removerPedido/{id}(id=${map.key.idItemPedido})}">Remover</a>
-       </td>
-          
+        <td th:text="${map.key.quantidade}">quantidade</td>                   
       </tr>
      
     </tbody>

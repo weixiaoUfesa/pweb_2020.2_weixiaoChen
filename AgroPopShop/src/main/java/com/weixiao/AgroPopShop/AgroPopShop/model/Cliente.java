@@ -1,7 +1,7 @@
 package com.weixiao.AgroPopShop.AgroPopShop.model;
 
 import java.io.Serializable;
-import java.util.List;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,7 +36,6 @@ public class Cliente implements Serializable {
 	
 	@OneToMany(targetEntity = Dependente.class,mappedBy = "cliente",
 			   fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	
 	private Set<Dependente> dependetes;
 	
 	 

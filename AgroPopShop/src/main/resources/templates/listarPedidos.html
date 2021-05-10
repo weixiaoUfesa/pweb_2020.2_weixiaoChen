@@ -39,7 +39,7 @@
 <li>Venda
   <ul>
   
-    <li><a href="/listarVendas">Listar Vendas </a></li>
+    <li><a href="/listarVenda">Listar venda</a></li>
  </ul>
 </li>
 </ul>
@@ -72,44 +72,42 @@
     
 
       <tr>
-      <th>id</th>
-      <th>Nome</th>
-      <th>marca</th>
-      <th>altura</th>
-      <th>largura</th>
-      <th>profundidade</th>
-      <th>peso</th>
-      <th>preço</th>
-      <th>quantidade</th>
-      <th>editar</th>
-      <th>remover</th>
+      <th>Pedido id</th>
     
+      
 
+             
+            
 
       </tr>
     </thead>
     <tbody>  <!--${}:atributo,@{}:link-->
-      <tr th:each  ="map : ${map}">
-        <td th:text="${map.value.idProduto}"></td>
-        <td th:text="${map.value.nome}"></td>
-        <td th:text="${map.value.marca}" ></td>
-        <td th:text="${map.value.altura}" ></td>
-        <td th:text="${map.value.largura}" ></td>
-        <td th:text="${map.value.profundidade}" ></td>
-        <td th:text="${map.value.peso}" ></td> 
-        <td th:text="${map.value.preco}" ></td> 
-        <td th:text="${map.key.quantidade}">quantidade</td>                    
-        <td>
-           <a th:href="@{/editarPedido/{id}(id=${map.key.idItemPedido})}">Editar</a>
-        </td>
+       <tr th:each  ="i: ${pedidos}">
+             <td th:text="${i.idPedido}"></td>
+            
 
-        <td>
-           <a th:href="@{/removerPedido/{id}(id=${map.key.idItemPedido})}">Remover</a>
-       </td>
-          
-      </tr>
-     
-    </tbody>
+             <td>            
+                <a th:href="@{/listarItens/{id}(id=${i.idPedido})}">lista itens</a>
+            </td>
+             <td>
+                <a th:href="@{/editarPedido/{id}(id=${i.idPedido})}">Editar</a>
+              </td>
+              <td>
+                <a th:href="@{/removerPedido/{id}(id=${i.idPedido})}">Remover</a>
+              </td>
+
+              
+
+             
+       </tr>
+  
+
+
+       
+      
+
+   
+       </tbody>
     </table>
 </div>
 </body>

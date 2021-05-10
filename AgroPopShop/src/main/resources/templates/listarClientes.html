@@ -55,6 +55,7 @@
        <th>Editar</th>
        <th>Remover</th>
        <th>lista dependentes</th>
+       <th>lista pedidos</th>
 
        </tr>
      </thead>
@@ -79,6 +80,10 @@
 
               <td>            
                 <a th:href="@{/listarDependentes/{id}(id=${cliente.idCliente})}">lista dependente</a>
+              </td>
+
+              <td>            
+                <a th:href="@{/listarPedidos/{id}(id=${cliente.idCliente})}">Listar Pedido</a>
               </td>
         </tr>
         </tbody>

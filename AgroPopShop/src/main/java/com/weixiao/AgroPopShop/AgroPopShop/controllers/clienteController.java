@@ -1,11 +1,12 @@
 package com.weixiao.AgroPopShop.AgroPopShop.controllers;
 
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.postgresql.translation.messages_bg;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -21,11 +22,13 @@ import com.weixiao.AgroPopShop.AgroPopShop.model.Cliente;
 import com.weixiao.AgroPopShop.AgroPopShop.model.Dependente;
 import com.weixiao.AgroPopShop.AgroPopShop.model.ItemPedido;
 import com.weixiao.AgroPopShop.AgroPopShop.model.Produto;
+import com.weixiao.AgroPopShop.AgroPopShop.model.Venda;
 import com.weixiao.AgroPopShop.AgroPopShop.model.Pedido;
 import com.weixiao.AgroPopShop.AgroPopShop.repositories.ClienteRepository;
 import com.weixiao.AgroPopShop.AgroPopShop.repositories.ItemPedidoRepository;
 import com.weixiao.AgroPopShop.AgroPopShop.repositories.PedidoRepository;
 import com.weixiao.AgroPopShop.AgroPopShop.repositories.ProdutoRepository;
+import com.weixiao.AgroPopShop.AgroPopShop.repositories.VendaRepository;
 import com.weixiao.AgroPopShop.AgroPopShop.repositories.DependenteRepository;
 
 
@@ -42,6 +45,8 @@ public class clienteController {
 	DependenteRepository dependenteRepo;
 	@Autowired
 	PedidoRepository pedidoRepo;
+	@Autowired
+	VendaRepository vendaRepository;
 	
 	
 	@GetMapping
@@ -75,6 +80,7 @@ public ModelAndView adicionarCliente(Cliente C) {
 }
 
 //editar_Cliente
+//id_cliente  
 @GetMapping("/editarCliente/{id}")
 public ModelAndView formEditarCliente(@PathVariable("id") long id ) {
 	  Cliente aEditar=clienteRepo.findById(id)
@@ -84,6 +90,7 @@ public ModelAndView formEditarCliente(@PathVariable("id") long id ) {
 	  mav.addObject(aEditar) ;
 	  return mav;
 }
+//id_cliente  
 @PostMapping("/editarCliente/{id}")
 public ModelAndView formEditarCliente(@PathVariable("id") long id,Cliente cliente ) {
 	
@@ -95,6 +102,7 @@ public ModelAndView formEditarCliente(@PathVariable("id") long id,Cliente client
 }
 
 //remover_Cliente
+//id_cliente  
 @GetMapping("/remover/{id}")
 public ModelAndView removerCliente(@PathVariable("id") long id) {
 	  Cliente aRemover = clienteRepo.findById(id)
@@ -122,7 +130,7 @@ public ModelAndView temp() {
 
 
 // adicionar_Dependente
-     
+//id_cliente  
 @PostMapping("/adicionarDependente/{id}")
 public ModelAndView adicionarDependente(@PathVariable("id") long id,Dependente D) {
 
@@ -136,17 +144,12 @@ public ModelAndView adicionarDependente(@PathVariable("id") long id,Dependente D
 
 	 
       
-
-
-
-
-
 //exibir_Dependente
-          
+//id_cliente        
 @GetMapping("/listarDependentes/{id}")
 public ModelAndView listarDependetes(@PathVariable("id") long id) {
-	Optional<Cliente> cliente1= clienteRepo.findById(id);
-	Cliente cliente = cliente1.get();
+	Optional<Cliente> opCliente= clienteRepo.findById(id);
+	Cliente cliente = opCliente.get();
 	List<Dependente> lista = dependenteRepo.findByCliente(cliente);
 	ModelAndView mav =new ModelAndView("listarDependentes");
     mav.addObject("dependentes",lista);
@@ -154,6 +157,7 @@ public ModelAndView listarDependetes(@PathVariable("id") long id) {
 				 }
 
 //editar_Dependente
+//id_Dependente
 @GetMapping("/editarDependente/{id}") 
 public ModelAndView formEditarDependente(@PathVariable("id") long id ) {
 	Dependente aEditar=dependenteRepo.findById(id)
@@ -163,7 +167,7 @@ public ModelAndView formEditarDependente(@PathVariable("id") long id ) {
 	  mav.addObject(aEditar) ;
 	  return mav;
 }
-
+//id_Dependente
 @PostMapping("/editarDependente/{id}")
 public ModelAndView formEditarDependente(@PathVariable("id") long id,Dependente D ) {
 	Optional<Dependente> temp= dependenteRepo.findById(id);
@@ -176,6 +180,7 @@ public ModelAndView formEditarDependente(@PathVariable("id") long id,Dependente 
 	  return new ModelAndView("redirect:/listarClientes");
 }
 //remover_Dependente
+//id_Dependente
 @GetMapping("/removerDependente/{id}") 
 public ModelAndView removerDependente(@PathVariable("id") long id) {
 	Dependente aRemover = dependenteRepo.findById(id)
@@ -183,6 +188,7 @@ public ModelAndView removerDependente(@PathVariable("id") long id) {
 	dependenteRepo.delete(aRemover);
 	  return new ModelAndView("redirect:/listarClientes");
 }
+
 
 
 //adicionar_Produto
@@ -199,7 +205,7 @@ public String adicionarProduto(Produto P) {
 	                  
 	  return "cadastrarComSucesso";
 }           
-//exibir
+//exibir_Produto
 @GetMapping("/listarProdutos")
 public ModelAndView listarProdutos() {
 		 List<Produto> lista = produtoRepo.findAllByOrderByNomeAsc();
@@ -207,7 +213,8 @@ public ModelAndView listarProdutos() {
 				 mav.addObject("produtos",lista);
 				 return mav;
 				 }
-//editar
+//editar_Produto
+//id_Produto
 @GetMapping("/editarProduto/{id}")
 public ModelAndView formEditarProduto(@PathVariable("id") long id ) {
 	  Produto aEditar=produtoRepo.findById(id)
@@ -218,6 +225,7 @@ public ModelAndView formEditarProduto(@PathVariable("id") long id ) {
 	  mav.addObject(aEditar) ;
 	  return mav;
 }
+//id_Produto
 @PostMapping("/editarProduto/{id}")
 public ModelAndView formEditarProduto(@PathVariable("id") long id,Produto produto ) {
 	  produto.setIdProduto(id);
@@ -226,7 +234,8 @@ public ModelAndView formEditarProduto(@PathVariable("id") long id,Produto produt
 	  return new ModelAndView("redirect:/listarProdutos");
 }
 
-//remover
+//remover_Produto
+//id_Produto
 @GetMapping("/removerproduto/{id}")
 public ModelAndView removerProduto(@PathVariable("id") long id) {
 	  Produto aRemover = produtoRepo.findById(id)
@@ -235,28 +244,27 @@ public ModelAndView removerProduto(@PathVariable("id") long id) {
 	  return new ModelAndView("redirect:/listarProdutos");
 }
 
-//exibirpaginaDecomprara
+//exibir_paginaDecomprar
+//id_Cliente
 @RequestMapping("/paginaComprar/{id}")
 public ModelAndView paginaComprar(@PathVariable("id") long id) {
-		 List<Produto> lista = produtoRepo.findAllByOrderByNomeAsc();
+		 List<Produto> listaProduto = produtoRepo.findAllByOrderByNomeAsc();
 		 ModelAndView mav =new ModelAndView("paginaComprar");
-				 mav.addObject("produtos",lista);
+				 mav.addObject("produtos",listaProduto);
 				 
 				
-				 Optional<Cliente> cliente1=clienteRepo.findById(id);
-				 Cliente cliente = cliente1.get();
+				 Optional<Cliente> opCliente=clienteRepo.findById(id);
+				 Cliente cliente = opCliente.get();
 				
-				 Pedido pedido1 =pedidoRepo.findByCliente(cliente);
-			    
-				
-				 ItemPedido novoItempedido	= new ItemPedido();
+				 Pedido pedido = pedidoRepo.findByCliente(cliente);
 				 
-			     novoItempedido.setPedido(pedido1);
+				 ItemPedido novoItempedido = new ItemPedido();
+			     novoItempedido.setPedido(pedido);
 			     this.iPRepo.save(novoItempedido);
 				 
-				mav.addObject(new ItemPedido());
+				 mav.addObject(new ItemPedido());
 				
-			    long idPedido= pedido1.getIdPedido();
+			     long idPedido = pedido.getIdPedido();
 				
 				mav.addObject("idPedido", idPedido);
 				 return mav;
@@ -265,98 +273,215 @@ public ModelAndView paginaComprar(@PathVariable("id") long id) {
 
 
 //cadastrar_Pedido
+//id_cliente
 @PostMapping("/cadastrarPedido/{id}")
 public ModelAndView cadastrarPedido(@PathVariable("id") long id,Pedido P) {
 
-	  Cliente add=clienteRepo.findById(id)
+	  Cliente addCliente = clienteRepo.findById(id)
 			  .orElseThrow(()->new IllegalArgumentException("id inválido:"+id));
-	 P.setCliente(add);
+	 P.setCliente(addCliente);
 	 pedidoRepo.save(P);
 	 P.getIdPedido();
-     long idnovo=P.getIdPedido();
-     
-    
-     String string = String.format("redirect:/paginaComprar/%o", idnovo);
-     
-	  return new ModelAndView(string);
+     long idPedido = P.getIdPedido();
+     String string = String.format("redirect:/paginaComprar/%o", idPedido);
+     return new ModelAndView(string);
 	}
 
 
-//add
-
+//adicionar_Produto_NoPedido
+//id1=id_Pedido
+//id2=id_Produto
 @PostMapping("/adicionarNoPedido/{id1}/{id2}")
 public ModelAndView adicionarProduto(@PathVariable("id1") long id1,@PathVariable("id2") long id2, ItemPedido itemPedido)
 {
-	Optional<Produto> OPprodutro=produtoRepo.findById(id2);
-     Produto produto=OPprodutro.get();//produto
+	 Optional<Produto> OPprodutro = produtoRepo.findById(id2);
+     Produto produto = OPprodutro.get();
      
-     //Optional<Pedido> pedido1=pedidoRepo.findById(id1);
-     //Pedido pedido =pedido1.get();  
-     
-     //itemPedido.setPedido(pedido);
-     //itemPedido.setProduto(produto);
-    
-     //ItemPedido addItemPedido=iPRepo.findByPedido(pedido);
-     ItemPedido addItemPedido=iPRepo.findTopByOrderByIdItemPedidoDesc();
-     long idVelho=addItemPedido.getIdItemPedido();
+     ItemPedido addItemPedido = iPRepo.findTopByOrderByIdItemPedidoDesc();
+     long idVelho = addItemPedido.getIdItemPedido();
      
      addItemPedido.setQuantidade(itemPedido.getQuantidade());
      addItemPedido.setProduto(produto);	
      addItemPedido.setValorUnidade(produto.getPreco());
      addItemPedido.setIdItemPedido(idVelho);
      this.iPRepo.save(addItemPedido);
-     //itemPedido.getIdItemPedido();
-     //this.iPRepo.save(itemPedido);
-	 
 	 return new ModelAndView("redirect:/paginaComprar/{id1}");}
+
+
+//listar_pedidos
+@GetMapping("/listarPedidos/{id}")public ModelAndView listarPedido(@PathVariable("id") long id) {
+	Optional<Cliente> opCliente= clienteRepo.findById(id);
+	Cliente cliente = opCliente.get();
+	List<Pedido> pedidos = pedidoRepo.findAllByCliente(cliente);
+    
+    ModelAndView mav =new ModelAndView("listarPedidos");
+    mav.addObject("pedidos",pedidos);
+return mav;
+}
+
+
+
 //Exibir_Pedidos.
+//id1=id_Pedido
 @PostMapping("/confirmarPedido/{id1}")public ModelAndView confirmarPedido(@PathVariable("id1") long id1)
 {   
 	
 	Optional<Pedido> OpPedido=pedidoRepo.findById(id1);
 	List<ItemPedido> ItemPedidos= iPRepo.findByPedido(OpPedido.get());
-	List<Produto> lista = produtoRepo.findByItemPedidosIn(ItemPedidos);
-    //List<Produto> lista = produtoRepo.findAll();
+	List<Produto> listaProduto = produtoRepo.findByItemPedidosIn(ItemPedidos);
+     
 	 ModelAndView mav =new ModelAndView("confirmarPedido");
-	//mav.addObject("produtos",lista);
 	         int total=0;
 	         double taxa=0.225;
-			 mav.addObject("produtos",lista);
-			 Map<Produto,Integer> map = new HashMap<>();
-			 for (int i=0;i<lista.size();i++){
-			 map.put(lista.get(i),ItemPedidos.get(i).getQuantidade());
-			 total=total+Integer.parseInt(lista.get(i).getPreco())*ItemPedidos.get(i).getQuantidade();}
-			 mav.addObject("produtos",map);
+		 Map<ItemPedido,Produto> map =new HashMap<ItemPedido,Produto>();
+	         for (int i = 0; i <listaProduto.size(); i++) {
+	        	 
+	        	 map.put(ItemPedidos.get(i), listaProduto.get(i));
+	        	 total = total+ItemPedidos.get(i).getQuantidade()*Integer.parseInt(listaProduto.get(i).getPreco());
+	
+	         }
+	        	
+			 mav.addObject("map",map);
 			 mav.addObject("total",total);
 			 mav.addObject("imposto",(total*taxa));
-			 //Optional<Cliente> cliente1=clienteRepo.findById(id1);
-			// Cliente cliente = cliente1.get();
+			 mav.addObject("idPedido",id1);
 			
-			// Pedido pedido1 =pedidoRepo.findByCliente(cliente);
-		    
-			
-			 //ItemPedido novoItempedido	= new ItemPedido();
-			 
-		     //novoItempedido.setPedido(pedido1);
-		     //this.iPRepo.save(novoItempedido);
-			 
-			//mav.addObject(new ItemPedido());
-			
-		    //long idPedido= pedido1.getIdPedido();
-			
-			//mav.addObject("idPedido", idPedido);
 			 return mav;
 			 
-			 
+}
+//listar_Itens_do_pedido
+@GetMapping ("/listarItens/{id}")
+public ModelAndView listarItens(@PathVariable("id") long id){ 
+	Optional<Pedido> OpPedido=pedidoRepo.findById(id);
+	List<ItemPedido> ItemPedidos= iPRepo.findByPedido(OpPedido.get());
+	List<Produto> listaProduto = produtoRepo.findByItemPedidosIn(ItemPedidos);
 
-
+	 ModelAndView mav =new ModelAndView("confirmarPedido");
+     int total=0;
+     double taxa=0.225;
+ Map<ItemPedido,Produto> map =new HashMap<ItemPedido,Produto>();
+     for (int i = 0; i <listaProduto.size(); i++) {
+    	 map.put(ItemPedidos.get(i), listaProduto.get(i));
+    	 total = total+ItemPedidos.get(i).getQuantidade()*Integer.parseInt(listaProduto.get(i).getPreco());
+        
+     }
+    	
+	 mav.addObject("map",map);
+	 mav.addObject("total",total);
+	 mav.addObject("imposto",(total*taxa));
+	 mav.addObject("idPedido",id);
+			
+			 return mav;
+    
 }
 
+
+
+//listar_Itens_do_pedido
+//editar_Itens_do_pedido
+//id=ItemPedidos
+//@{/editarPedido/{id}
+
+//removerPedido
+//id=id_Pedido
+@GetMapping("/removerPedido/{id}")
+public ModelAndView removerPedido(@PathVariable("id") long id){ 
+	long idCliente=pedidoRepo.findById(id).get().getCliente().getIdCliente();
+	
+	pedidoRepo.deleteById(id);
+    
+	
+	String string = String.format("redirect:/listarPedidos/%o",idCliente);
+    return new ModelAndView(string);
+}
+//id1=id_Pedido
+@PostMapping("/realizarPagamento/{id1}")
+public ModelAndView realizarPagamento(@PathVariable("id1") long id1){ 
+	Optional<Pedido> OpPedido=pedidoRepo.findById(id1);
+	Pedido pedido = OpPedido.get();
+	List<ItemPedido> ItemPedidos= iPRepo.findByPedido(pedido);
+	List<Produto> lista = produtoRepo.findByItemPedidosIn(ItemPedidos);
+	ModelAndView mav =new ModelAndView("realizarPagamento");
+	
+    int total=0;
+    double taxa=0.225;
+
+    for (int i = 0; i < lista.size(); i++) {
+   	total=total+Integer.parseInt(lista.get(i).getPreco())*ItemPedidos.get(i).getQuantidade();
 		
-		
-		              
+	}
+			 
+			
+	 
+	mav.addObject("Pedido",pedido);
 
+	 mav.addObject("total",total);
+	 mav.addObject("imposto",(total*taxa));
+	
+		          
+return mav;
+}
 
-
-
+//criar_venda
+//id_pedido
+@PostMapping ("/pagar/{id1}")
+public ModelAndView pagar(@PathVariable("id1") long id1,Pedido P){
+	            
+	  
+	     Pedido pedido= pedidoRepo.findByIdPedido(id1);
+		 pedido.setCartao(P.getCartao());
+		 pedido.setSituacaoPagamento(true);
+		 pedido.setIdPedido(id1);
+		 this.pedidoRepo.save(pedido);
+		 
+		 Venda venda=new Venda();
+	     venda.setPedido(pedido);                 
+	     this.vendaRepository.save(venda);
+	      
+	ModelAndView mav =new ModelAndView("cadastrarComSucesso");
+	return mav;
+}
+//listar_venda
+@GetMapping("/listarVendas")
+public ModelAndView listarVendas() {
+	List<Venda> vendas = vendaRepository.findAll();
+	List<Pedido> pedidos = pedidoRepo.findByVendaIn(vendas);
+	ModelAndView mav =new ModelAndView("listarVendas");
+    	Map<Venda, Pedido> map= new HashMap<Venda, Pedido>();
+    
+    for (int i = 0; i <vendas.size(); i++) {
+    	map.put(vendas.get(i),pedidos.get(i));
+	}
+	
+	
+    mav.addObject("vendas",map);
+    
+	return mav;
+}
+//detalhar_venda
+//id_venda
+             
+@GetMapping("/detalhar/{id}")
+public ModelAndView detalharVendas(@PathVariable("id") long id) {
+	Venda venda=vendaRepository.findByIdVenda(id);
+	Pedido pedido= pedidoRepo.findByVenda(venda);
+	List<ItemPedido> ItemPedidos = iPRepo.findByPedido(pedido);
+	List<Produto> listaProduto = produtoRepo.findByItemPedidosIn(ItemPedidos);
+	ModelAndView mav =new ModelAndView("detalharVendas");
+	                               
+ 
+    Map<ItemPedido,Produto> map =new HashMap<ItemPedido,Produto>();
+     for (int i = 0; i <listaProduto.size(); i++) {
+    	 map.put(ItemPedidos.get(i), listaProduto.get(i));
+     }
+	mav.addObject("vendas",map);
+    
+	return mav;
+}
+@GetMapping("/removerVenda/{id}")
+public ModelAndView removerVenda(@PathVariable("id") long id) {
+	ModelAndView mav =new ModelAndView("listarVendas");
+	this.vendaRepository.deleteById(id);
+	return mav;
+}
 }

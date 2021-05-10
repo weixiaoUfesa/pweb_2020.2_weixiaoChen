@@ -1,2 +1,0 @@
- th:action="@{/adicionarNoPedido/{id1}(id1=${requestScope.IdItemPedido})/
-                {id2}(id2=${produto.idProduto})}"

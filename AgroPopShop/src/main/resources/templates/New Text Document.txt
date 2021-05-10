@@ -1,0 +1,20 @@
+<tbody>  <!--${}:atributo,@{}:link-->
+       <tr th:each  ="map : ${map}">
+             <td th:text="${map.value.idProduto}"></td>
+             <td th:text="${map.value.nome}"></td>
+             <td th:text="${map.value.marca}" ></td>
+             <td th:text="${map.value.altura}" ></td>
+             <td th:text="${map.value.largura}" ></td>
+             <td th:text="${map.value.profundidade}" ></td>
+             <td th:text="${map.value.peso}" ></td> 
+             <td th:text="${map.value.preco}" ></td> 
+             <td th:text="${map.key.quantidade}">quantidade</td>                    
+             <td>
+                <a th:href="@{/editarPedido/{id}(id=${map.key.idItemPedido})}">Editar</a>
+            </td>
+
+              <td>
+                <a th:href="@{/removerPedido/{id}(id=${map.key.idItemPedido})}">Remover</a>
+              </td>
+               
+        </tr>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href ="@{/css/index_style.css}" rel="stylesheet"/>
+  <meta name="secret-code" content="1965684192">
+<title>Início - Com Spring</title>
+</head>
+
+<body>
+  
+
+
+<div class="wrapper" style="padding:1px 16px;height:170px;">
+  <ul>
+<li><a href="/">Início</a></li>
+<li>produto
+  <ul>
+    <li><a href="/adicionarProduto" >Adicionar produto</a></li>
+    <li><a href="/listarProdutos">Listar produto</a></li>
+  </ul>
+</li>
+
+<li>Cliente
+  <ul>
+     <li><a href="/adicionarCliente" >Adicionar cliente</a></li>
+     <li><a href="/listarClientes">Listar clientes</a></li>
+  </ul>
+</li>
+
+<li>Pedido
+  <ul>
+   
+ </ul>
+</li>
+
+<li>Venda
+  <ul>
+  
+    <li><a href="/listarVendas">Listar Vendas</a></li>
+ </ul>
+</li>
+</ul>
+</div>
+
+
+
+
+ 
+<div style="padding:1px 16px;height:1000px;">
+
+
+  
+  <table>
+    <thead>
+
+    
+
+      <tr>
+      <th>venda id</th>
+      <th>data</th>
+      <th>detalhar informacao da venda</th>
+      <th>editar</th>
+      <th>remover</th>
+      
+      
+
+      </tr>
+    </thead>
+    <tbody>  <!--${}:atributo,@{}:link-->
+       <tr th:each  ="map: ${vendas}">
+             <td th:text="${map.key.idVenda}"></td>
+             <td th:text="${map.value.dataPedido}"></td>
+
+             <td>
+              <a th:href="@{/detalhar/{id}(id=${map.key.idVenda})}">detalhar</a>
+            </td>
+
+             <td>
+                <a th:href="@{/editarVenda/{id}(id=${map.key.idVenda})}">Editar</a>
+              </td>
+              <td>
+                <a th:href="@{/removerVenda/{id}(id=${map.key.idVenda})}">Remover</a>
+              </td>
+
+              
+
+             
+       </tr>
+  
+
+
+       
+      
+
+   
+       </tbody>
+    </table>
+</div>
+</body>
+
+</html>
