@@ -9,62 +9,48 @@
 <title>Início - Com Spring</title>
 </head>
 
-
-
-<div class="wrapper">
+<div class="wrapper" style="padding:1px 16px;height:170px;">
   <ul>
 <li><a href="/">Início</a></li>
 <li>produto
   <ul>
-    <li><a href="/adicionarProduto">Adicionar cliente</a></li>
-    <li><a href="/listarProdutos">Listar clientes</a></li>
+    <li><a href="/adicionarProduto" >Adicionar produto</a></li>
+    <li><a href="/listarProdutos">Listar produto</a></li>
   </ul>
 </li>
 
 <li>Cliente
   <ul>
-     <li><a href="/adicionarCliente">Adicionar produto</a></li>
-     <li><a href="/listarClientes">Listar produtos</a></li>
+     <li><a href="/adicionarCliente" >Adicionar cliente</a></li>
+     <li><a href="/listarClientes">Listar clientes</a></li>
   </ul>
 </li>
 
-<li>nada</li>
-<li>nada</li>
+<li>Nada
+  <ul>
+   
+ </ul>
+</li>
+
+<li>Venda
+  <ul>
+  
+    <li><a href="/listarVendas">Listar Vendas </a></li>
+ </ul>
+</li>
 </ul>
 </div>
-
 
 <div style="padding:1px 16px;height:1000px;">
    <h1 style="font-size:40px;"> adicionarDependente</h1>
 
-   <h1>adicionarDependente</h1>
-   <table>
-     <thead>
-       <tr>
-       <th>id</th>
-       <th>Nome Completo</th>
-      
-       <th>Editar</th>
-       <th>Remover</th>
-       <th>Adicionar Dependente</th>
-       <th>Cadastrar Pedido</th>
- 
-       </tr>
-     </thead>
-     <tbody>  <!--${}:atributo,@{}:link-->
-        <tr th:each  ="cliente: ${clientes}">
-              <td th:text="${cliente.idCliente}"></td>
-              <td th:text="${cliente.nome}"></td>
-              
-         
-              <td>
-                <a th:href="@{/editarCliente/{id}(id=${cliente.idCliente})}">Editar</a>
-              </td>
-              <td>
-                <a th:href="@{/remover/{id}(id=${cliente.idCliente})}">Remover</a>
-              </td>
 
-              <td>
+
+
+ 
+
+ 
+ 
                 <form
     method="POST"
     th:object="${dependente}"
@@ -106,10 +92,8 @@
 
     </form>
 
+    <h1>fazer pedido</h1>
 
-              </td>
-
-              <td>
                 <form
                 method="POST"
                 th:object="${pedido}"
@@ -152,26 +136,5 @@
             
                 </form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                  
-              </td>
-
-        </tr>
-        </tbody>
-     </table>
 </body>
 </html>

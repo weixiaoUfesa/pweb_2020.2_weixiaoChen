@@ -73,10 +73,13 @@ public ModelAndView formAdicionarCliente() {
 @PostMapping("/adicionarCliente")
 public ModelAndView adicionarCliente(Cliente C) {
 	  this.clienteRepo.save(C);
+	  C.getIdCliente();
 	  
+	   
 	
-	  
-	  return new ModelAndView("redirect:/temp");       
+	  String string = String.format("redirect:/temp/%o",C.getIdCliente());
+	     return new ModelAndView(string);
+ 
 }
 
 //editar_Cliente
@@ -118,12 +121,15 @@ public ModelAndView removerCliente(@PathVariable("id") long id) {
 
 
 //pagina_temporario 
-@GetMapping("/temp")
-public ModelAndView temp() {
-	List<Cliente> lista = clienteRepo.findAll();
+//id=cliente;
+@GetMapping("/temp/{id}")
+public ModelAndView temp(@PathVariable("id") long id) {
+	
+	Cliente cliente = clienteRepo.findByIdCliente(id);
 	 ModelAndView mav =new ModelAndView("temp");
+	 
     mav.addObject(new Dependente());
-	mav.addObject("clientes",lista.get(lista.size()-1));
+	mav.addObject("cliente",cliente);
 	mav.addObject(new Pedido());
 	return mav;
 		}
@@ -139,7 +145,9 @@ public ModelAndView adicionarDependente(@PathVariable("id") long id,Dependente D
 	  
 	  D.setCliente(add);
 	  dependenteRepo.save(D);
-	  return new ModelAndView("redirect:/temp");
+	  String string = String.format("redirect:/temp/%o",id);
+	     return new ModelAndView(string);
+	 
 	}
 
 	 
@@ -245,28 +253,18 @@ public ModelAndView removerProduto(@PathVariable("id") long id) {
 }
 
 //exibir_paginaDecomprar
-//id_Cliente
-@RequestMapping("/paginaComprar/{id}")
+//id_pedido
+@GetMapping("/paginaComprar/{id}")
 public ModelAndView paginaComprar(@PathVariable("id") long id) {
 		 List<Produto> listaProduto = produtoRepo.findAllByOrderByNomeAsc();
 		 ModelAndView mav =new ModelAndView("paginaComprar");
 				 mav.addObject("produtos",listaProduto);
+				 pedidoRepo.findByIdPedido(id);
 				 
-				
-				 Optional<Cliente> opCliente=clienteRepo.findById(id);
-				 Cliente cliente = opCliente.get();
-				
-				 Pedido pedido = pedidoRepo.findByCliente(cliente);
-				 
-				 ItemPedido novoItempedido = new ItemPedido();
-			     novoItempedido.setPedido(pedido);
-			     this.iPRepo.save(novoItempedido);
-				 
+			
 				 mav.addObject(new ItemPedido());
-				
-			     long idPedido = pedido.getIdPedido();
-				
-				mav.addObject("idPedido", idPedido);
+                 
+				 mav.addObject("idPedido",id);
 				 return mav;
 				 
 				 }
@@ -294,17 +292,15 @@ public ModelAndView cadastrarPedido(@PathVariable("id") long id,Pedido P) {
 @PostMapping("/adicionarNoPedido/{id1}/{id2}")
 public ModelAndView adicionarProduto(@PathVariable("id1") long id1,@PathVariable("id2") long id2, ItemPedido itemPedido)
 {
-	 Optional<Produto> OPprodutro = produtoRepo.findById(id2);
-     Produto produto = OPprodutro.get();
-     
-     ItemPedido addItemPedido = iPRepo.findTopByOrderByIdItemPedidoDesc();
-     long idVelho = addItemPedido.getIdItemPedido();
-     
-     addItemPedido.setQuantidade(itemPedido.getQuantidade());
-     addItemPedido.setProduto(produto);	
-     addItemPedido.setValorUnidade(produto.getPreco());
-     addItemPedido.setIdItemPedido(idVelho);
-     this.iPRepo.save(addItemPedido);
+     Pedido  pedido = pedidoRepo.findByIdPedido(id1);
+     Produto produto = produtoRepo.findByIdProduto(id2);
+
+     ItemPedido novo =new ItemPedido();
+     novo.setPedido(pedido);
+     novo.setQuantidade(itemPedido.getQuantidade());
+     novo.setProduto(produto);	
+     novo.setValorUnidade(produto.getPreco());
+     this.iPRepo.save(novo);
 	 return new ModelAndView("redirect:/paginaComprar/{id1}");}
 
 
@@ -350,10 +346,11 @@ return mav;
 			 
 }
 //listar_Itens_do_pedido
+//id=pedido
 @GetMapping ("/listarItens/{id}")
-public ModelAndView listarItens(@PathVariable("id") long id){ 
-	Optional<Pedido> OpPedido=pedidoRepo.findById(id);
-	List<ItemPedido> ItemPedidos= iPRepo.findByPedido(OpPedido.get());
+public ModelAndView listarItens(@PathVariable("id") long id){
+	List<ItemPedido> ItemPedidos= iPRepo.findAllByPedido(pedidoRepo.findByIdPedido(id));
+	//List<ItemPedido> ItemPedidos= iPRepo.findByPedido(pedidoRepo.findByIdPedido(id));
 	List<Produto> listaProduto = produtoRepo.findByItemPedidosIn(ItemPedidos);
 
 	 ModelAndView mav =new ModelAndView("confirmarPedido");
@@ -377,12 +374,60 @@ public ModelAndView listarItens(@PathVariable("id") long id){
 
 
 
-//listar_Itens_do_pedido
-//editar_Itens_do_pedido
-//id=ItemPedidos
-//@{/editarPedido/{id}
 
-//removerPedido
+//editar_Itens_do_pedido
+//id=idItemPedido
+@GetMapping("/editarItem/{id}")
+public ModelAndView editarItem(@PathVariable("id") long id){ 
+   long idItemPedido=id;
+   List<Produto> listaProduto = produtoRepo.findAllByOrderByNomeAsc();
+	ModelAndView mav =new ModelAndView("adicionarUmItem");
+	mav.addObject("produtos",listaProduto);
+	mav.addObject("idItemPedido",idItemPedido);
+	mav.addObject(new ItemPedido());
+	
+	return mav;
+}
+//adicionarUmItem(depois de editar Itens do pedido)
+//id1=idItemPedido
+//id2=idProduto
+@PostMapping("/adicionarUmItem/{id1}/{id2}")
+public ModelAndView adicionarUmItem(@PathVariable("id1") long id1,@PathVariable("id2") long id2, ItemPedido itemPedido){
+     Produto produto = produtoRepo.findByIdProduto(id2);
+     ItemPedido aEditar = iPRepo.findByIdItemPedido(id1);
+     long idVelho=aEditar.getIdItemPedido();
+     long idPedido= aEditar.getPedido().getIdPedido();
+     aEditar.setQuantidade(itemPedido.getQuantidade());
+     aEditar.setProduto(produto);
+     aEditar.setValorUnidade(produto.getPreco());
+     aEditar.setIdItemPedido(idVelho);
+                       
+	this.iPRepo.save(aEditar);
+	                   
+	 String string = String.format("redirect:/listarItens/%o", idPedido);
+     return new ModelAndView(string);
+}
+//removerItem
+@GetMapping("/removerItem/{id}")
+public ModelAndView removerItem(@PathVariable("id") long id){ 
+	long idPedido=iPRepo.findByIdItemPedido(id).getPedido().getIdPedido();
+	this.iPRepo.deleteById(id);
+	
+	 String string = String.format("redirect:/listarItens/%o", idPedido);
+     return new ModelAndView(string);
+}
+
+
+//editar Pedido
+//id=id_ItemPedidos
+@GetMapping("/editarPedido/{id}")
+public ModelAndView editarPedido(@PathVariable("id") long id){ 
+	 
+	String string = String.format("redirect:/listarItens/%o",id);
+    return new ModelAndView(string);
+}
+
+//remover Pedido
 //id=id_Pedido
 @GetMapping("/removerPedido/{id}")
 public ModelAndView removerPedido(@PathVariable("id") long id){ 
@@ -478,6 +523,8 @@ public ModelAndView detalharVendas(@PathVariable("id") long id) {
     
 	return mav;
 }
+//remover-Venda
+//id=venda
 @GetMapping("/removerVenda/{id}")
 public ModelAndView removerVenda(@PathVariable("id") long id) {
 	ModelAndView mav =new ModelAndView("listarVendas");

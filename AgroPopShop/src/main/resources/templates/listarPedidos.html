@@ -11,56 +11,40 @@
 
 <body>
   
-
-
-<div class="wrapper" style="padding:1px 16px;height:170px;">
-  <ul>
-<li><a href="/">Início</a></li>
-<li>produto
-  <ul>
-    <li><a href="/adicionarProduto" >Adicionar produto</a></li>
-    <li><a href="/listarProdutos">Listar produto</a></li>
-  </ul>
-</li>
-
-<li>Cliente
-  <ul>
-     <li><a href="/adicionarCliente" >Adicionar cliente</a></li>
-     <li><a href="/listarClientes">Listar clientes</a></li>
-  </ul>
-</li>
-
-<li>Pedido
-  <ul>
-   
- </ul>
-</li>
-
-<li>Venda
-  <ul>
+  <div class="wrapper" style="padding:1px 16px;height:170px;">
+    <ul>
+  <li><a href="/">Início</a></li>
+  <li>produto
+    <ul>
+      <li><a href="/adicionarProduto" >Adicionar produto</a></li>
+      <li><a href="/listarProdutos">Listar produto</a></li>
+    </ul>
+  </li>
   
-    <li><a href="/listarVenda">Listar venda</a></li>
- </ul>
-</li>
-</ul>
-</div>
-
-
-
-<div style="padding:1px 16px;height:170px;">
-    <h1>Lista de produtos do seu pedido ,
-        valor total: <td th:text="${total}" ></td>reais ,
-        imposto:<td th:text="${imposto}" ></td>reais .
-    </h1>
-    <form
-    method="POST"
-    th:action="@{/realizarPagamento/{id1}(id1=${idPedido})}"
-    >
+  <li>Cliente
+    <ul>
+       <li><a href="/adicionarCliente" >Adicionar cliente</a></li>
+       <li><a href="/listarClientes">Listar clientes</a></li>
+    </ul>
+  </li>
   
-    <input class="hh" type="submit" value="realizar pagamento ">
-   </form>
+  <li>Nada
+    <ul>
+     
+   </ul>
+  </li>
+  
+  <li>Venda
+    <ul>
+    
+      <li><a href="/listarVendas">Listar Vendas </a></li>
+   </ul>
+  </li>
+  </ul>
+  </div>
 
-</div>
+
+
  
 <div style="padding:1px 16px;height:1000px;">
 
@@ -73,6 +57,11 @@
 
       <tr>
       <th>Pedido id</th>
+      <th>forma de pagamento </th>
+      <th>Listar itens do pedido</th>
+    
+      <th>Editar Pedido </th>
+      <th>Remover Pedido </th>
     
       
 
@@ -84,11 +73,13 @@
     <tbody>  <!--${}:atributo,@{}:link-->
        <tr th:each  ="i: ${pedidos}">
              <td th:text="${i.idPedido}"></td>
+             <td th:text="${i.formaDePagamento}"></td>
             
 
              <td>            
                 <a th:href="@{/listarItens/{id}(id=${i.idPedido})}">lista itens</a>
             </td>
+            
              <td>
                 <a th:href="@{/editarPedido/{id}(id=${i.idPedido})}">Editar</a>
               </td>
@@ -96,9 +87,6 @@
                 <a th:href="@{/removerPedido/{id}(id=${i.idPedido})}">Remover</a>
               </td>
 
-              
-
-             
        </tr>
   
 

@@ -12,38 +12,37 @@
 <body>
   
 
-
-<div class="wrapper" style="padding:1px 16px;height:170px;">
-  <ul>
-<li><a href="/">Início</a></li>
-<li>produto
-  <ul>
-    <li><a href="/adicionarProduto" >Adicionar produto</a></li>
-    <li><a href="/listarProdutos">Listar produto</a></li>
-  </ul>
-</li>
-
-<li>Cliente
-  <ul>
-     <li><a href="/adicionarCliente" >Adicionar cliente</a></li>
-     <li><a href="/listarClientes">Listar clientes</a></li>
-  </ul>
-</li>
-
-<li>Pedido
-  <ul>
-   
- </ul>
-</li>
-
-<li>Venda
-  <ul>
+  <div class="wrapper" style="padding:1px 16px;height:170px;">
+    <ul>
+  <li><a href="/">Início</a></li>
+  <li>produto
+    <ul>
+      <li><a href="/adicionarProduto" >Adicionar produto</a></li>
+      <li><a href="/listarProdutos">Listar produto</a></li>
+    </ul>
+  </li>
   
-    <li><a href="/listarVendas">Listar Vendas </a></li>
- </ul>
-</li>
-</ul>
-</div>
+  <li>Cliente
+    <ul>
+       <li><a href="/adicionarCliente" >Adicionar cliente</a></li>
+       <li><a href="/listarClientes">Listar clientes</a></li>
+    </ul>
+  </li>
+  
+  <li>Nada
+    <ul>
+     
+   </ul>
+  </li>
+  
+  <li>Venda
+    <ul>
+    
+      <li><a href="/listarVendas">Listar Vendas </a></li>
+   </ul>
+  </li>
+  </ul>
+  </div>
 
 
 
@@ -100,11 +99,11 @@
         <td th:text="${map.value.preco}" ></td> 
         <td th:text="${map.key.quantidade}">quantidade</td>                    
         <td>
-           <a th:href="@{/editarPedido/{id}(id=${map.key.idItemPedido})}">Editar</a>
+           <a th:href="@{/editarItem/{id}(id=${map.key.idItemPedido})}">Editar</a>
         </td>
 
         <td>
-           <a th:href="@{/removerPedido/{id}(id=${map.key.idItemPedido})}">Remover</a>
+           <a th:href="@{/removerItem/{id}(id=${map.key.idItemPedido})}">Remover</a>
        </td>
           
       </tr>

@@ -11,6 +11,8 @@
 
 <body>
   
+
+
   <div class="wrapper" style="padding:1px 16px;height:170px;">
     <ul>
   <li><a href="/">Início</a></li>
@@ -63,7 +65,6 @@
       <th>profundidade</th>
       <th>peso</th>
       <th>preço</th>
-   
       <th>add</th>
 
              
@@ -86,8 +87,8 @@
                 method="POST"
                 th:object="${itemPedido}"
                                                                       
-                th:action="@{/adicionarNoPedido/{id1}/{id2}
-                (id1=${idPedido},id2=${produto.idProduto})}"
+                th:action="@{/adicionarUmItem/{id1}/{id2}
+                (id1=${idItemPedido},id2=${produto.idProduto})}"
 
                 >
               
@@ -105,14 +106,8 @@
           
 
        </tr>
-       <form
-       method="POST"
-       th:action="@{/confirmarPedido/{id1}(id1=${idPedido})}"
-       >
-     
-       <input class="hh" type="submit" value="confirmar seu Pedido">
-      </form>
-       <h1>Lista de produtos,adicione produtos no seu pedido</h1>
+      
+       <h1>escolher um item </h1>
    
        </tbody>
     </table>

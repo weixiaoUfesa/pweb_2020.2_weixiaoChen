@@ -8,4 +8,5 @@ import com.weixiao.AgroPopShop.AgroPopShop.model.Dependente;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	Cliente findByDependetes(Dependente dependente);
+	Cliente findByIdCliente(long id);
 }
