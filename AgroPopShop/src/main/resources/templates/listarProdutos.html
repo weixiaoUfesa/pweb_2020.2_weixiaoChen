@@ -59,6 +59,7 @@
       <th>largura</th>
       <th>profundidade</th>
       <th>peso</th>
+      <th>volume</th>
       <th>preço</th>
       <th>Editar</th>
       <th>Remover</th>
@@ -69,11 +70,14 @@
              <td th:text="${produto.idProduto}"></td>
              <td th:text="${produto.nome}"></td>
              <td th:text="${produto.marca}" ></td>
-             <td th:text="${produto.altura}" ></td>
-             <td th:text="${produto.largura}" ></td>
-             <td th:text="${produto.profundidade}" ></td>
+             <td th:text="${produto.altura}+'cm'" ></td>
+             <td th:text="${produto.largura}+'cm'" ></td>
+             <td th:text="${produto.profundidade}+'cm'" ></td>
              <td th:text="${produto.peso}" ></td> 
+
+              <td th:text="${produto.largura*produto.altura*produto.profundidade}+'cm³'" ></td> 
              <td th:text="${produto.preco}" ></td> 
+
              <td>
                <a th:href="@{/editarProduto/{id}(id=${produto.idProduto})}">Editar</a>
              </td>
