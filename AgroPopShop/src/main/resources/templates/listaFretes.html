@@ -43,10 +43,39 @@
 </ul>
 </div>
 
-<body>
-    cadastrar com succeso.
-</body>
+<div style="padding:1px 16px;height:1000px;">
+  <h1 style="font-size:40px;">Lista de produtos cadastrados</h1>
+
+  <h1>Lista de produtos</h1>
+  <table>
+    <thead>
+
     
 
+      <tr>
+      <th>id</th>
+      <th>Nome</th>
+      <th>peso</th>
+      <th>volume</th>
+      <th>preço</th>
+      <th>frete</th>
+    
+      </tr>
+    </thead>
+    <tbody>  <!--${}:atributo,@{}:link-->
+       <tr th:each  ="produto: ${produtos}">
+             <td th:text="${produto.idProduto}"></td>
+             <td th:text="${produto.nome}"></td>
+        
+             <td th:text="${produto.peso}+'grama'" ></td> 
+
+              <td th:text="${produto.volume}+'cm³'" ></td> 
+             <td th:text="${produto.preco}+'reais'" ></td> 
+             <td th:text="${produto.peso*123456}+'reais'" ></td> 
+          
+       </tr>
+       </tbody>
+    </table>
+</body>
 
 </html>

@@ -31,7 +31,15 @@ public class Produto implements Serializable {
 	private float altura;
 	private float largura;
 	private float profundidade;
-	private String peso;
+	private float peso;
+	private float volume;
+	
+	public float getVolume() {
+		return volume;
+	}
+	public void setVolume(float volume) {
+		this.volume = volume;
+	}
 	private String preco;
 	
 	@OneToMany(targetEntity = ItemPedido.class,mappedBy = "produto",
@@ -74,10 +82,10 @@ public class Produto implements Serializable {
 	public void setProfundidade(float profundidade) {
 		this.profundidade = profundidade;
 	}
-	public String getPeso() {
+	public float getPeso() {
 		return peso;
 	}
-	public void setPeso(String peso) {
+	public void setPeso(float peso) {
 		this.peso = peso;
 	}
 	public String getPreco() {

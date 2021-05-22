@@ -17,6 +17,7 @@
   <ul>
     <li><a href="/adicionarProduto" >Adicionar produto</a></li>
     <li><a href="/listarProdutos">Listar produto</a></li>
+    <li><a href="/listaFretes">Listar fretes</a></li>
   </ul>
 </li>
 
@@ -73,10 +74,10 @@
              <td th:text="${produto.altura}+'cm'" ></td>
              <td th:text="${produto.largura}+'cm'" ></td>
              <td th:text="${produto.profundidade}+'cm'" ></td>
-             <td th:text="${produto.peso}" ></td> 
+             <td th:text="${produto.peso}+'grama'" ></td> 
 
-              <td th:text="${produto.largura*produto.altura*produto.profundidade}+'cm³'" ></td> 
-             <td th:text="${produto.preco}" ></td> 
+              <td th:text="${produto.volume}+'cm³'" ></td> 
+             <td th:text="${produto.preco}+'reais'" ></td> 
 
              <td>
                <a th:href="@{/editarProduto/{id}(id=${produto.idProduto})}">Editar</a>

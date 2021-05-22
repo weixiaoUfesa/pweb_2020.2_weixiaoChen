@@ -208,7 +208,9 @@ public ModelAndView formAdicionarProduto() {
 		  return modelAndView;}
     
 @PostMapping("/adicionarProduto")
-public String adicionarProduto(Produto P) {
+public String adicionarProduto(Produto P){
+	  float volume=P.getLargura()*P.getAltura()*P.getProfundidade();
+	  P.setVolume(volume);
 	  this.produtoRepo.save(P);
 	                  
 	  return "cadastrarComSucesso";
@@ -237,6 +239,8 @@ public ModelAndView formEditarProduto(@PathVariable("id") long id ) {
 @PostMapping("/editarProduto/{id}")
 public ModelAndView formEditarProduto(@PathVariable("id") long id,Produto produto ) {
 	  produto.setIdProduto(id);
+	  float volume=produto.getLargura()*produto.getAltura()*produto.getProfundidade();
+	  produto.setVolume(volume);
 	  this.produtoRepo.save(produto);
 	  
 	  return new ModelAndView("redirect:/listarProdutos");
@@ -252,6 +256,15 @@ public ModelAndView removerProduto(@PathVariable("id") long id) {
 	  return new ModelAndView("redirect:/listarProdutos");
 }
 
+
+//listaFretes
+@GetMapping("/listaFretes")
+public ModelAndView listarFretes() {
+		 List<Produto> lista = produtoRepo.findAllByOrderByVolumeDesc();
+		 ModelAndView mav =new ModelAndView("listaFretes");
+				 mav.addObject("produtos",lista);
+				 return mav;
+				 }
 //exibir_paginaDecomprar
 //id_pedido
 @GetMapping("/paginaComprar/{id}")
