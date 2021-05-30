@@ -11,6 +11,8 @@ import com.weixiao.AgroPopShop.AgroPopShop.model.Produto;
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
              List<Produto> findAllByOrderByNomeAsc(); 
              List<Produto> findAllByOrderByVolumeDesc();
+             List<Produto> findFirst4ByOrderByIdProdutoDesc();
+                              
              Produto findByIdProduto(long id);
              List<Produto> findByItemPedidosIn(List<ItemPedido> itemPedidos);
 }

@@ -10,7 +10,6 @@
 </head>
 
 
-
 <div class="wrapper" style="padding:1px 16px;height:170px;">
   <ul>
 <li><a href="/">Início</a></li>
@@ -44,7 +43,34 @@
 </li>
 </ul>
 </div>
+
+<div style="padding:1px 16px;height:1000px;">
+  <h1 style="font-size:40px;">Lista de produtos cadastrados</h1>
+
+  <h1>Lista de produtos com desconto</h1>
+  <table>
+    <thead>
+
     
 
+      <tr>
+    
+      <th>Nome</th>
+      <th>o preço original</th>
+      <th>o preço com desconto</th>
+     
+      </tr>
+    </thead>
+    <tbody>  <!--${}:atributo,@{}:link-->
+       <tr th:each  ="produto: ${produtos}">
+             <td th:text="${produto.nome}+'reais'" ></td> 
+             <td th:text="${produto.preco}+'reais'" ></td> 
+             <td th:text="${produto.preco*0.96981265}+'reais'" ></td> 
+
+          
+       </tr>
+       </tbody>
+    </table>
+</body>
 
 </html>

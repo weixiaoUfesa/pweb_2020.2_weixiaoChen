@@ -1,5 +1,7 @@
 package com.weixiao.AgroPopShop.AgroPopShop.controllers;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -544,4 +546,14 @@ public ModelAndView removerVenda(@PathVariable("id") long id) {
 	this.vendaRepository.deleteById(id);
 	return mav;
 }
+@GetMapping("/desconto")
+public ModelAndView desconto() {
+		 List<Produto> lista = produtoRepo.findFirst4ByOrderByIdProdutoDesc();
+		 Collections.sort(lista);
+		 ModelAndView mav =new ModelAndView("desconto");
+				 mav.addObject("produtos",lista);
+				 return mav;
+				 }
+
+
 }

@@ -12,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import net.bytebuddy.implementation.bytecode.Throw;
+
 @Entity
 @Table(name="Produtos")
-public class Produto implements Serializable {
+public class Produto implements Serializable,Comparable{
 	private static final long serialVersionUID = 6178098803459551807L;
 	
 	@Id
@@ -40,7 +42,7 @@ public class Produto implements Serializable {
 	public void setVolume(float volume) {
 		this.volume = volume;
 	}
-	private String preco;
+	private float preco;
 	
 	@OneToMany(targetEntity = ItemPedido.class,mappedBy = "produto",
 			   fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -88,14 +90,30 @@ public class Produto implements Serializable {
 	public void setPeso(float peso) {
 		this.peso = peso;
 	}
-	public String getPreco() {
+	public float getPreco() {
 		return preco;
 	}
-	public void setPreco(String preco) {
+	public void setPreco(float preco) {
 		this.preco = preco;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		if(o instanceof Produto) {
+			Produto produto=(Produto)o;
+			if(this.preco<produto.preco) {
+				return 1;
+			}else if (this.preco>produto.preco) {
+				return -1;
+			}else {
+				return 0;
+			}
+		}
+		throw new RuntimeException("preco errado");
+		
 	}
 
 	
