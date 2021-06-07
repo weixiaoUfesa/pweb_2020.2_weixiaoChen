@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt_br">
 <head>
-  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-  <script th:inline="javascript">
-   
-    $.getJSON("https://viacep.com.br/ws/01001000/json",function(data){
-    console.log(data);
-    var cidade = data.localidade;
-   
-    var tt=document.getElementById('value').value;
-    console.log(tt);
   
-}
- 
-);
-  </script>
  
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +22,6 @@
     <li><a href="/listarProdutos">Listar produto</a></li>
     <li><a href="/listaFretes">Listar fretes</a></li>
     <li><a href="/desconto">Listar 4 produtos com desconto</a></li>
-    <li><a href="/buscar">buscar produto pelo nome</a></li>
   </ul>
 </li>
 
@@ -61,8 +47,18 @@
 </ul>
 </div>
 <body>
-  
+ 
+    <p th:text="${produto.idProduto}"></p>
+    <p th:text="${produto.nome}"></p>
+    <p th:text="${produto.marca}"></p>
+    <p th:text="${produto.altura}"></p>
+    <p th:text="${produto.largura}+'cm'"></p>
+    <p th:text="${produto.profundidade}+'cm'"></p>
+    <p th:text="${produto.peso}+'grama'"></p>
+    <p th:text="${produto.preco}+'reais'"></p>
 
+   
+  
   
 
 </body>

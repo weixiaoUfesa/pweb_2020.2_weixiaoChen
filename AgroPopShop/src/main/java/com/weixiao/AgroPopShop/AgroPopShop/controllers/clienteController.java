@@ -8,11 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.tomcat.jni.Mmap;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +29,7 @@ import com.weixiao.AgroPopShop.AgroPopShop.model.Dependente;
 import com.weixiao.AgroPopShop.AgroPopShop.model.ItemPedido;
 import com.weixiao.AgroPopShop.AgroPopShop.model.Produto;
 import com.weixiao.AgroPopShop.AgroPopShop.model.Venda;
+import com.weixiao.AgroPopShop.AgroPopShop.model.cep;
 import com.weixiao.AgroPopShop.AgroPopShop.model.Pedido;
 import com.weixiao.AgroPopShop.AgroPopShop.repositories.ClienteRepository;
 import com.weixiao.AgroPopShop.AgroPopShop.repositories.ItemPedidoRepository;
@@ -35,7 +40,7 @@ import com.weixiao.AgroPopShop.AgroPopShop.repositories.DependenteRepository;
 
 
 @Controller
-@RequestMapping("/")
+
 public class clienteController {
 	@Autowired
 	ClienteRepository clienteRepo;
@@ -50,12 +55,15 @@ public class clienteController {
 	@Autowired
 	VendaRepository vendaRepository;
 	
+	//exibir
+	@GetMapping("/")
+	public ModelAndView CEP() {
+		   ModelAndView mav =new ModelAndView("index");
 	
-	@GetMapping
-	public String index() {
-		return "index.html";
-		
-	}
+		   return mav;}
+	
+	
+	
 //exibir
 @GetMapping("/listarClientes")
 public ModelAndView listarClientes() {
@@ -65,6 +73,7 @@ public ModelAndView listarClientes() {
 				 mav.addObject("clientes",lista);
 				 return mav;
 				 }
+
 //criar
 @GetMapping("/adicionarCliente")
 public ModelAndView formAdicionarCliente() {
@@ -265,6 +274,7 @@ public ModelAndView listarFretes() {
 		 List<Produto> lista = produtoRepo.findAllByOrderByVolumeDesc();
 		 ModelAndView mav =new ModelAndView("listaFretes");
 				 mav.addObject("produtos",lista);
+				 mav.addObject("message", "Welcome to BeiJing!");
 				 return mav;
 				 }
 //exibir_paginaDecomprar
@@ -554,6 +564,25 @@ public ModelAndView desconto() {
 				 mav.addObject("produtos",lista);
 				 return mav;
 				 }
+//busacar
+@GetMapping("/buscar")
+public ModelAndView buscar() {
+		  ModelAndView modelAndView= new ModelAndView("buscar");
+		  modelAndView.addObject(new Produto());
+		  return modelAndView;}
+    
+@PostMapping("/buscar")
+public ModelAndView retornar(Produto p) {
+      
+	
+	String nome=p.getNome();
+	Produto Pro=produtoRepo.findByNome(nome)
+    		  .orElseThrow(()->new IllegalArgumentException("nome inválido"));
+    		
+	  ModelAndView modelAndView = new ModelAndView("retornar");
+	  
+	  modelAndView.addObject("produto",Pro);
+	  return modelAndView;}
 
 
 }

@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt_br">
 <head>
-  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-  <script th:inline="javascript">
-   
-    $.getJSON("https://viacep.com.br/ws/01001000/json",function(data){
-    console.log(data);
-    var cidade = data.localidade;
-   
-    var tt=document.getElementById('value').value;
-    console.log(tt);
   
-}
- 
-);
-  </script>
  
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -61,8 +48,24 @@
 </ul>
 </div>
 <body>
-  
+  <form
+    method="POST"
+    th:object="${produto}"
+    th:action="@{/buscar}"
+    >
 
+    <p>Nome de produto*: 
+      <input type="text" placeholder="cep" th:field="*{nome}" required/>
+    </p>
+  
+    
+    
+    <input class="hh" type="reset" value="limpa">
+    <input class="hh" type="submit" value="cadastrar!">
+
+    </form>
+    
+  
   
 
 </body>
