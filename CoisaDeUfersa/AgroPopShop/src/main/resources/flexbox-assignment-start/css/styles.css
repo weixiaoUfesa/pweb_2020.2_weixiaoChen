@@ -1,0 +1,150 @@
+body{
+  padding:1%;
+	line-height: 1em;
+	background-image: url("../img/flickr-logo-background.svg");
+	background-repeat:repeat;
+	background-size:150px;
+}
+
+h1{
+  font-family:Verdana, Arial, sans-serif;
+  font-weight: bold;
+  font-size:2em;
+  margin:1% 0 1% 0;
+	color:#FF9ACE;
+	text-shadow: 2px 2px 2px #FD0082;
+}
+
+h2{
+  font-family:Verdana, Arial, sans-serif;
+  font-weight: bold;
+  font-size:1.3em;
+  margin:3% 0 1% 0;
+	color:#FF9ACE;
+	text-shadow: 2px 2px 2px #FD0082;
+}
+
+h3{
+  font-family:Verdana, Arial, sans-serif;
+  font-weight: bold;
+  font-size:1em;
+  margin:2% 0 1% 0;
+  color:#FF9ACE;
+	text-shadow: 2px 2px 2px #FD0082;
+}
+
+h6{
+  font-family:Verdana, Arial, sans-serif;
+  font-weight: bold;
+  font-size:.5em;
+  text-align:center;
+}
+
+p{
+  font-family:Garamond, serif;
+  font-size:.95em;
+  line-height:1.2em;
+  text-align: justify;
+  margin:2% 0 1% 0;
+  background-color: #76B4FF;
+	padding: 1%;
+box-shadow: 4px 4px 2px #0062D9;
+}
+
+ul{
+	display: flex;
+}
+
+img{
+	width:100%;
+	max-width:182px;
+}
+
+@media screen and (min-width:768px){
+	article{
+		display:flex;
+	}
+	.left{
+		width:500%;
+	}
+	.right{
+		width:48%;
+		margin-left: 2%;	
+	}
+	.web{
+		clear:both;
+	}
+}
+
+@media screen and (min-width:1000px){
+	.left{
+		align-items: flex-start;
+		display:flex;
+		width:100%;
+	}
+	div{
+	    width:100% ;
+		margin: 10px;
+	}
+	.right{
+	
+		width:100%;
+		display:block;
+		display:flex;
+	}
+	.hhh{
+		left: -10px;
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*@media screen and (min-width:1000px){
+	
+	.left{
+		display: block;
+	}
+	.one{
+		flex:1;
+	}
+	.two{
+		display: flex;
+	}
+	.three{
+		display:flex;
+	}
+	.four{
+		display: flex;
+	}
+	
+	.right{
+		display:block;
+		display:flex;
+	}
+	
+	
+} I give up*/
