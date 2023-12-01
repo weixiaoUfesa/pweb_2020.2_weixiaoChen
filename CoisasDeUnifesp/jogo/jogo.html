@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lian Lian Kan Game</title>
+    <style>
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(6, 50px);
+            grid-template-rows: repeat(9, 50px);
+            gap: 5px;
+        }
+
+        .game-tile {
+            width: 50px;
+            height: 50px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="gameBoard" class="game-board"></div>
+
+<script>
+let gameMatrix = [];
+
+
+
+function creatValues() {
+    
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    let randomIntegers = [];
+
+    for (let i = 0; i < 18; i++) {
+        const randomInt = getRandomInt(0, 1);
+        randomIntegers.push(randomInt);
+    }
+    randomIntegers
+
+    
+
+    // 数组X2
+    randomIntegers
+
+    // 复制数组并合并
+const copiedArray = randomIntegers.slice();
+const mergedArray = copiedArray.concat(randomIntegers);
+// 洗牌算法
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// 复制并打乱数组
+const shuffledArray = [...mergedArray];
+shuffleArray(shuffledArray);
+
+// 打印原始数组和打乱后的数组
+//console.log("Original Array:", mergedArray);
+//console.log("Shuffled Array:", shuffledArray);
+return shuffledArray;
+    }
+
+
+    const linhas = 6;
+    const colunas = 6;
+    const value=0;
+    
+    let selectedTile = null;
+
+    function initializeGameBoard() {
+        const gameBoard = document.getElementById('gameBoard');
+        const valueToinsert=creatValues();
+       
+        let temp=0;
+
+        
+        for (let i = 0; i < linhas; i++) {
+            let linhas = [];
+            for (let j = 0; j < colunas; j++) {
+
+                
+                
+                const tile = document.createElement('div');
+                tile.classList.add('game-tile');
+                tile.dataset.linhas = i;
+                tile.dataset.colunas = j;
+                tile.dataset.value = valueToinsert[temp];
+                linhas.push(valueToinsert[temp]);
+                tile.textContent = i + '-' + j+ '-' + valueToinsert[temp];
+                console.log("Shuffled Array:", valueToinsert[temp]);
+                temp=temp+1;
+                
+                tile.addEventListener('click', handleTileClick);
+                gameBoard.appendChild(tile);
+            }
+            gameMatrix.push(linhas);
+        }
+        
+        return gameMatrix;
+        
+    }
+
+    function handleTileClick(event) {
+        const clickedTile = event.target;
+        clickedTile.style.border =  '2px solid green';
+        console.log(clickedTile.textContent);
+
+    if (selectedTile) {
+            
+           //virada(selectedTile, clickedTile);
+            //if(selectedTile.dataset.colunas === (clickedTile.dataset.colunas)){
+               // console.log('igual');}
+            //console.log(selectedTile.dataset.linhas);
+            //console.log(selectedTile.dataset.colunas);
+            //console.log(clickedTile.dataset.linhas);
+            //console.log(clickedTile.dataset.colunas);
+            //(sameValue(selectedTile, clickedTile))
+           // virada(selectedTile, clickedTile);
+
+           //if (semVirada(selectedTile, clickedTile)&&sameValue(selectedTile, clickedTile)) {
+            
+            if (semVirada(selectedTile, clickedTile) && sameValue(selectedTile, clickedTile) || sameValue(selectedTile, clickedTile) && umVirada(selectedTile, clickedTile))
+ {
+                
+                console.log("yiyang");
+                // 连接有效，处理连接逻辑
+                console.log(`Connecting ${selectedTile.textContent} and ${clickedTile.textContent}`);
+                // 变透明
+                selectedTile.style.opacity = 0;
+                 clickedTile.style.opacity = 0;
+                
+                 console.log(gameMatrix);
+                 
+                 gameMatrix[selectedTile.dataset.linhas][selectedTile.dataset.colunas]=-1;
+                 gameMatrix[clickedTile.dataset.linhas][clickedTile.dataset.colunas]=-1;
+                 selectedTile=null;
+            } else {
+                // 连接无效，重新选择
+                 
+                 clickedTile.style.border =  'none';
+                 selectedTile.style.border =  'none';
+                 selectedTile=null;
+                 
+                 //selectedTile=null;
+                 //selectedTile.classList.remove('selected');
+                 //selectedTile = clickedTile;
+                 //selectedTile.classList.add('selected');
+                 
+            }
+     } else {
+            // 选择第一个方块
+            selectedTile = clickedTile;
+            //selectedTile.classList.add('selected')
+        }
+    }
+
+   
+    
+    function sameValue(tile1, tile2) {
+
+    return tile1.dataset.value === tile2.dataset.value;
+}
+
+function semVirada(tile1, tile2) {
+    return tile1.dataset.colunas === tile2.dataset.colunas && Number(tile1.dataset.linhas) === Number(tile2.dataset.linhas)-1 ||
+tile1.dataset.colunas === tile2.dataset.colunas && Number(tile1.dataset.linhas) === Number(tile2.dataset.linhas)+1 ||
+Number(tile1.dataset.colunas) === Number(tile2.dataset.colunas) + 1 && tile1.dataset.linhas === tile2.dataset.linhas ||
+Number(tile1.dataset.colunas) === Number(tile2.dataset.colunas) -1 && tile1.dataset.linhas === tile2.dataset.linhas; 
+    
+} 
+
+function umVirada(tile1, tile2) {
+
+    let MatrizTemp = [];
+    MatrizTemp  = JSON.parse(JSON.stringify(gameMatrix));
+
+    let i = Number(tile1.dataset.colunas)+1;//d---->
+    let a = Number(tile1.dataset.colunas)-1;
+
+    let i = Number(tile1.dataset.colunas)+1;
+    let i = Number(tile1.dataset.colunas)+1;
+
+do {
+    if (Number(gameMatrix[tile1.dataset.linhas][i]) !== -1) {
+        MatrizTemp[Number(tile1.dataset.linhas)][i] = -2;   //---->
+        break;
+    }
+
+    i++;
+} while (i < colunas);
+
+    //console.log(MatrizTemp);
+    //console.log('pode11111');
+    //console.log(MatrizTemp[Number(tile2.dataset.linhas)][Number(tile2.dataset.colunas)]);
+    if (Number(MatrizTemp[tile2.dataset.linhas][tile2.dataset.colunas])===-2 ){
+      return true}}
+
+function umVirada(tile1, tile2) {
+    
+    return true}
+    
+
+    //console.log(MatrizTemp);
+
+    
+    //if(MatrizTemp[tile2.dataset.linhas][tile2.dataset.colunas] === -2){
+    
+    //    console.log('yiyang');
+    
+    //}
+
+    //Number(tile1.dataset.colunas) === Number(tile2.dataset.colunas) -1 
+    //&& tile1.dataset.linhas === tile2.dataset.linhas;
+
+   
+
+
+
+
+window.onload = initializeGameBoard;
+console.log(gameMatrix);
+</script>
+
+
+
+
+
+   
+    
+</body>
+</html>
