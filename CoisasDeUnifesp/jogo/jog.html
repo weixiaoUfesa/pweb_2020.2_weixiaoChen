@@ -7,14 +7,14 @@
     <style>
         .game-board {
             display: grid;
-            grid-template-columns: repeat(6, 50px);
-            grid-template-rows: repeat(9, 50px);
+            grid-template-columns: repeat(6, 100px);
+            grid-template-rows: repeat(9, 100px);
             gap: 5px;
         }
 
         .game-tile {
-            width: 50px;
-            height: 50px;
+            width: 100px;
+            height: 100px;
             background-color: lightblue;
             text-align: center;
             line-height: 50px;
@@ -95,16 +95,29 @@ return shuffledArray;
                 
                 
                 const tile = document.createElement('div');
+
+                 
+
                 tile.classList.add('game-tile');
                 tile.dataset.linhas = i;
                 tile.dataset.colunas = j;
                 tile.dataset.value = valueToinsert[temp];
                 linhas.push(valueToinsert[temp]);
-                tile.textContent = i + '-' + j+ '-' + valueToinsert[temp];
+                //tile.textContent = i + '-' + j+ '-' + valueToinsert[temp];
                 console.log("Shuffled Array:", valueToinsert[temp]);
                 temp=temp+1;
                 
-                tile.addEventListener('click', handleTileClick);
+                //tile.addEventListener('click', handleTileClick);
+                // 创建一个 img 元素
+        const img = document.createElement('img');
+        // 设置图片的 src 属性为您的图像 URL
+        img.src = 'https://github.com/weixiaoUfesa/pweb_2020.2_weixiaoChen/blob/main/CoisasDeUnifesp/jogo/1.gif?raw=true';
+        // 将 img 元素附加到 div 元素中
+        img.style.width = '100px';
+        img.style.height = '100px';
+        // 将 img 元素附加到 div 元素中
+        tile.appendChild(img);
+        tile.addEventListener('click', handleTileClick);
                 gameBoard.appendChild(tile);
             }
             gameMatrix.push(linhas);
@@ -114,98 +127,32 @@ return shuffledArray;
         
     }
 
-    /*function handleTileClick(event) {
-        const clickedTile = event.target;
-        clickedTile.style.border =  '2px solid green';
-        console.log(clickedTile.textContent);
-
-    if (selectedTile) {
-            
-           //virada(selectedTile, clickedTile);
-            //if(selectedTile.dataset.colunas === (clickedTile.dataset.colunas)){
-               // console.log('igual');}
-            //console.log(selectedTile.dataset.linhas);
-            //console.log(selectedTile.dataset.colunas);
-            //console.log(clickedTile.dataset.linhas);
-            //console.log(clickedTile.dataset.colunas);
-            //(sameValue(selectedTile, clickedTile))
-           // virada(selectedTile, clickedTile);
-
-           //if (semVirada(selectedTile, clickedTile)&&sameValue(selectedTile, clickedTile)) {
-            
-            if (sameValue(selectedTile, clickedTile))  
-            {
-               if(semVirada(selectedTile, clickedTile))
-               {
-                conectado(selectedTile, clickedTile);
-                //selectedTile=null;
-                
-
-               }else{console.log('erro sem virada ')// 连接无效，重新选择
-                 
-                 clickedTile.style.border =  'none';
-                 selectedTile.style.border =  'none';
-                 selectedTile=null;
-                }
-                
-                
-                if(semViradaReta(selectedTile, clickedTile)){
-                   
-                        //conectado(selectedTile, clickedTile);
-                        selectedTile=null;
-      
-                               
-                    
-                }/*else{console.log('erro sem virada reta')// 连接无效，重新选择
-                 
-                    clickedTile.style.border =  'none';
-                    selectedTile.style.border =  'none';
-                    selectedTile=null;}
-                    
-               
-               
-                }else{console.log('valor diferente');
-            // 连接无效，重新选择
-                 
-                 clickedTile.style.border =  'none';
-                    selectedTile.style.border =  'none';
-                     selectedTile=null;
-        
-        }
+   
                     
                 
                 
        
-    } else {
-            // 选择第一个方块
-            selectedTile = clickedTile;
-            //selectedTile.classList.add('selected')
-        }}
-        
-        */
+
     
 
+        
+        
         function handleTileClick(event) {
-        const clickedTile = event.target;
-        clickedTile.style.border =  '2px solid green';
+        if (event.target.tagName === 'IMG') {event.target.closest('.game-tile');
+        const clickedTile = event.target.closest('.game-tile');
+        clickedTile.style.border =  '2px solid red';
+        console.log(clickedTile.dataset.colunas);
+    
+        if (selectedTile) {
+
+
+// 检查父 div 元素是否存在
        
-
-    if (selectedTile) {
-            
-           //virada(selectedTile, clickedTile);
-            //if(selectedTile.dataset.colunas === (clickedTile.dataset.colunas)){
-            // console.log('igual');}
-            //console.log(selectedTile.dataset.linhas);
-            //console.log(selectedTile.dataset.colunas);
-            //console.log(clickedTile.dataset.linhas);
-            //console.log(clickedTile.dataset.colunas);
-            //(sameValue(selectedTile, clickedTile))
-           // virada(selectedTile, clickedTile);
-
-           //if (semVirada(selectedTile, clickedTile)&&sameValue(selectedTile, clickedTile)) {
-            
-            if (semVirada(selectedTile, clickedTile) && sameValue(selectedTile, clickedTile) || sameValue(selectedTile, clickedTile) && semViradaReta(selectedTile, clickedTile)|| sameValue(selectedTile, clickedTile) && umaVirada(selectedTile, clickedTile))
- {
+          
+          
+        if (sameValue(selectedTile, clickedTile)){
+            //if (semVirada(selectedTile, clickedTile) && sameValue(selectedTile, clickedTile) || sameValue(selectedTile, clickedTile) && semViradaReta(selectedTile, clickedTile)|| sameValue(selectedTile, clickedTile) && umaVirada(selectedTile, //clickedTile))
+ 
                 
                 console.log("yiyang");
                 // 连接有效，处理连接逻辑
@@ -226,18 +173,17 @@ return shuffledArray;
                  selectedTile.style.border =  'none';
                  selectedTile=null;
                  
-                 //selectedTile=null;
-                 //selectedTile.classList.remove('selected');
-                 //selectedTile = clickedTile;
-                 //selectedTile.classList.add('selected');
+               
                  
-            }
-     } else {
+            }} else {
             // 选择第一个方块
+            
+            
             selectedTile = clickedTile;
             //selectedTile.classList.add('selected')
         }
-    }
+        }}
+    
 
 function resetSelection(tile1, tile2) {
     if (tile1 && tile2) {
@@ -249,9 +195,13 @@ function resetSelection(tile1, tile2) {
 }
 
     
-    function sameValue(tile1, tile2) {
+    function sameValue(x) {
 
-    return tile1.dataset.value === tile2.dataset.value;
+        
+        
+        let p1=x.dataset.value;
+ 
+    return p1=== p1;
 }
 //Reta
 function semVirada(tile1, tile2) {
@@ -375,7 +325,7 @@ function semViradaReta(tile1, tile2) {
 
 
 
-//uma virada-chatgpt
+/*uma virada-chatgpt
     function umaVirada(tile1, tile2) {
         let ilinha;
         let icoluna;
@@ -421,7 +371,7 @@ function semViradaReta(tile1, tile2) {
                for (l; l <= 5; l++) {
                         linha++;
                         console.log(`xia`,linha);
-                    if (z2===0){
+                    //if (z2===0){
                         
                         break; }
                         z2++;
@@ -459,7 +409,7 @@ function semViradaReta(tile1, tile2) {
 
     return MatrizTemp2[tile2.dataset.linhas][tile2.dataset.colunas] === -2;
 }
-/*
+/**/
 //uma virada
 function umaVirada(tile1, tile2){
         console.log(tile1.textContent);
@@ -584,7 +534,7 @@ let w = Number(tile1.dataset.linhas)+1;
 if (Number(MatrizTemp2[tile2.dataset.linhas][tile2.dataset.colunas])===-2 ){
       return true}
       }
-      */
+      
 //duas viradas
 
 
