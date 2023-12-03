@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lian Lian Kan Game</title>
+    <style>
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(6, 200px);
+            grid-template-rows: repeat(9, 200px);
+            gap: 5px;
+        }
+
+        .game-tile {
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="gameBoard" class="game-board"></div>
+
+<script>
+let gameMatrix = [];
+let tempSelected=null;
+
+function creatValues() {
+function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    let randomIntegers = [];
+
+    for (let i = 0; i < 18; i++) {
+       // const randomInt = getRandomInt(0, 9);
+        const randomInt = 1;
+        randomIntegers.push(randomInt);
+    }
+
+    // 复制数组并合并
+const copiedArray = randomIntegers.slice();
+const mergedArray = copiedArray.concat(randomIntegers);
+// 洗牌算法
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// 复制并打乱数组
+const shuffledArray = [...mergedArray];
+shuffleArray(shuffledArray);
+
+// 打印原始数组和打乱后的数组
+//console.log("Original Array:", mergedArray);
+//console.log("Shuffled Array:", shuffledArray);
+return shuffledArray;
+    }
+
+    let total=36;
+    const linhas = 6;
+    const colunas = 6;
+    const value=0;
+    let sValue=999;
+    let sReta=999;//0nao 1sim
+    let uVirada=999;
+    let lin=0;
+    let col=0;
+    let selectedTile = null;
+
+function initializeGameBoard() {
+        const gameBoard = document.getElementById('gameBoard');
+        const valueToInsert=creatValues();
+        let temp=0;
+
+    for (let i = 0; i < linhas; i++) {
+
+            let linhas = [];
+            for (let j = 0; j < colunas; j++) {    
+                const tile = document.createElement('div');
+                tile.classList.add('game-tile');
+                tile.dataset.linhas = i;
+                tile.dataset.colunas = j;
+                tile.dataset.value = valueToInsert[temp];
+                linhas.push(valueToInsert[temp]);
+                //tile.textContent = i + '-' + j+ '-' + valueToinsert[temp];
+                console.log("Shuffled Array:", valueToInsert[temp]);
+                temp=temp+1;  
+        //img
+        const img = document.createElement('img');
+        img.src = `https://github.com/weixiaoUfesa/pweb_2020.2_weixiaoChen/blob/main/CoisasDeUnifesp/jogo/${Number(tile.dataset.value)}.gif?raw=true`;
+        img.style.width = '200px';
+        img.style.height = '200px';
+        tile.appendChild(img);
+        tile.addEventListener('click', handleTileClick);
+            gameBoard.appendChild(tile);
+            }
+        gameMatrix.push(linhas);
+    }
+        
+    return gameMatrix;
+        
+    }
+                    
+function handleTileClick(event) 
+{
+        if (event.target.tagName === 'IMG') 
+        {
+        event.target.closest('.game-tile');
+        const clickedTile = event.target.closest('.game-tile');
+        clickedTile.style.border =  '2px solid red';
+        
+        if (selectedTile) 
+        {
+              if (aoLado(selectedTile, clickedTile) && sameValue(selectedTile, clickedTile) || sameValue(selectedTile, clickedTile) && Reta(selectedTile, clickedTile)|| sameValue(selectedTile, clickedTile) && umaVirada(selectedTile,clickedTile)|| sameValue(selectedTile, clickedTile) && duasVirada(selectedTile,clickedTile))
+              {
+            //if (semVirada(selectedTile, clickedTile) && sameValue(selectedTile, clickedTile) || sameValue(selectedTile, clickedTile) && semViradaReta(selectedTile, clickedTile)|| sameValue(selectedTile, clickedTile) && umaVirada(selectedTile, //clickedTile))
+            conectado(selectedTile, clickedTile)
+
+              } else {
+                // nao combinou, escolhe denovo
+                 clickedTile.style.border =  'none';
+                 selectedTile.style.border =  'none';
+                 selectedTile=null;
+                     }
+     } else {
+           selectedTile = clickedTile;// escolher o primeiro bloco
+                }
+        }
+}
+    
+function resetSelection(tile1, tile2) {
+    if (tile1 && tile2) {
+        tile1.style.border = 'none';
+        tile2.style.border = 'none';
+        tempSelected=selectedTile;
+        selectedTile = null;
+    }
+}
+
+function sameValue(tile1, tile2) {
+
+    if(tile1.dataset.colunas === tile2.dataset.colunas&&tile1.dataset.linhas === tile2.dataset.linhas){
+        sValue=0;
+        return false}
+    if(tile1.dataset.value === tile2.dataset.value){
+        sValue=1; 
+        return true}
+return 
+
+}
+//Reta
+function aoLado(tile1, tile2) {
+
+    return tile1.dataset.colunas === tile2.dataset.colunas && Number(tile1.dataset.linhas) === Number(tile2.dataset.linhas)-1 ||
+tile1.dataset.colunas === tile2.dataset.colunas && Number(tile1.dataset.linhas) === Number(tile2.dataset.linhas)+1 ||
+Number(tile1.dataset.colunas) === Number(tile2.dataset.colunas) + 1 && tile1.dataset.linhas === tile2.dataset.linhas ||
+Number(tile1.dataset.colunas) === Number(tile2.dataset.colunas) -1 && tile1.dataset.linhas === tile2.dataset.linhas; 
+    
+} 
+
+
+function Reta(tile1,tile2) {
+    //console.log("reta did");
+    let MatrizTemp = JSON.parse(JSON.stringify(gameMatrix));
+        
+     direito(tile1,MatrizTemp,null,1);
+     esquerdo(tile1,MatrizTemp,null,1);
+     cima(tile1,MatrizTemp,null,1);
+     baixo(tile1,MatrizTemp,null,1);
+    // se é igual?
+    if (MatrizTemp[tile2.dataset.linhas][tile2.dataset.colunas] === -2) {
+        sReta=1;
+        //console.log("reta sim");
+        return true;
+    }
+   // console.log("reta nao");
+    //console.log("------------------------------------------------");
+    sReta=0;
+    return false;
+}
+
+function umaVirada(tile1,tile2) {
+    console.log("uma Virad did");
+    let MatrizTemp = JSON.parse(JSON.stringify(gameMatrix));
+    
+    direito(tile1,MatrizTemp,tile1.dataset.linhas,0);
+    esquerdo(tile1,MatrizTemp,tile1.dataset.linhas,0);
+    baixo(tile1,MatrizTemp,tile1.dataset.colunas,0);
+    cima(tile1,MatrizTemp,tile1.dataset.colunas,0);
+
+    if (MatrizTemp[tile2.dataset.linhas][tile2.dataset.colunas] === -2) {
+        uVirada=1;
+        //console.log("uma Virada sim");
+        return true;}
+        console.log("uma Virada nao");
+        console.log("--------------------");
+    uVirada=0;
+    return false;
+
+}
+
+function duasVirada(tile1,tile2) {
+    console.log("duaVirad did");
+    let MatrizTemp = JSON.parse(JSON.stringify(gameMatrix));
+
+    direito(tile1,MatrizTemp,tile1.dataset.linhas,0);
+    //esquerdo(tile1,MatrizTemp,tile1.dataset.linhas,0);
+//左上左
+//左上右
+//左下左
+//左下右
+
+    if (MatrizTemp[tile2.dataset.linhas][tile2.dataset.colunas] === -2) {
+        
+        return true;}
+  
+    console.log("duaVirad nao");
+    return false;
+}
+
+ //direito
+ //handleDirection(0, 1);
+ function direito(tile1,MatrizTemp,lin,sReta) {
+    let linha;
+    let coluna;
+
+        if (lin!==null){// 直线不启用， 一次折线启用，值为启用时对应的值
+            //console.log("lin entrou");
+        linha=lin;
+        coluna=Number(tile1.dataset.colunas)+1;
+        //coluna=Number(tile1.dataset.colunas) ;
+        }else{
+
+         linha = Number(tile1.dataset.linhas) + 0;
+         coluna = Number(tile1.dataset.colunas) + 1;
+                                       }
+                                       
+        while (linha >= 0 && linha <= 5 && coluna >= 0 && coluna <= 5) {
+           
+            if(sReta===0){//直线不通时=0,启用
+                
+                cima(tile1,MatrizTemp,coluna,1); 
+                baixo(tile1,MatrizTemp,coluna,1); 
+        }  
+            if (gameMatrix[linha][coluna] !== -1) {
+                MatrizTemp[linha][coluna] = -2;
+                break;
+            }
+           
+            coluna += 1;
+        }
+       
+    return  MatrizTemp;
+}
+//handleDirection(-1, 0);
+function cima(tile1,MatrizTemp,col,sReta) {
+    
+ 
+    let linha;
+    let coluna;
+    
+        if (col!==null){
+            //console.log("colunatmpt de cima did",col);
+            linha=Number(tile1.dataset.linhas)-1;
+            coluna=col;
+            
+        }else{
+
+        linha = Number(tile1.dataset.linhas) -1;
+        coluna = Number(tile1.dataset.colunas) + 0;
+        }
+        console.log("上",linha);
+        console.log("上",coluna);
+        while (linha >= 0 && linha <= 5 && coluna >= 0 && coluna <= 5) {
+            console.log("cima did");
+           if (sReta===0){
+              direito(tile1,MatrizTemp,linha,1); 
+              esquerdo(tile1,MatrizTemp,linha,1); 
+           }
+
+             //if (uVirada===0){ }
+
+            if (gameMatrix[linha][coluna] !== -1) {
+                MatrizTemp[linha][coluna] = -2;
+               
+                break;
+            }
+         linha -= 1;
+            
+        }
+
+        console.log("cima MatrizTemp2",MatrizTemp);
+        return  MatrizTemp;
+        
+    }
+
+
+//handleDirection(0, -1);
+function esquerdo(tile1,MatrizTemp,lin,sReta) {
+    
+    let linha;
+    let coluna;
+ 
+        if (lin!==null){
+        linha=lin;
+        coluna=Number(tile1.dataset.colunas) -1 ;
+        
+        }else{
+
+         linha = Number(tile1.dataset.linhas) + 0;
+         coluna = Number(tile1.dataset.colunas) -1 ;
+        } 
+           //console.log("左停 linha",linha);
+        
+
+        while (linha >= 0 && linha <= 5 && coluna >= 0 && coluna <= 5) {
+            //console.log("左停"); 
+            //console.log("sReta",sReta)
+            console.log("左停 linha",linha);
+            console.log("左停 coluna",coluna);;
+            if (sReta===0){
+            cima(tile1,MatrizTemp,coluna,1); 
+            //baixo(tile1,MatrizTemp,coluna,1); 
+          
+        }
+     
+           
+            if (gameMatrix[linha][coluna] !== -1) {
+                MatrizTemp[linha][coluna] = -2;
+                
+                break;
+            }
+            coluna -= 1;
+        }
+        //console.log("左的",MatrizTemp);
+           return  MatrizTemp;
+    }
+
+// baixo
+//handleDirection(1, 0);
+function baixo(tile1,MatrizTemp,col,sReta) {
+    
+    let linha;
+    let coluna;
+    //console.log("col 的值 ",col);
+    if (col!==null){
+             linha = Number(tile1.dataset.linhas) + 1;
+             coluna=col;
+
+        }else{
+    
+         linha = Number(tile1.dataset.linhas) + 1;
+         coluna = Number(tile1.dataset.colunas) + 0;
+    }
+         
+        while (linha >= 0 && linha <= 5 && coluna >= 0 && coluna <= 5) {
+
+            
+            //console.log("--------------------");
+            if (sReta===0){
+            //console.log("baixo de direito did");
+            direito(tile1,MatrizTemp,linha,1); 
+            //console.log("direito de baixo did");
+            esquerdo(tile1,MatrizTemp,linha,1); 
+            //console.log("direitode baixo did"); 
+        }
+            
+
+     
+
+
+            if (gameMatrix[linha][coluna] !== -1) {
+                MatrizTemp[linha][coluna] = -2;
+                break;
+            }
+            linha += 1;
+          
+        }
+        return  MatrizTemp;
+    }
+
+
+
+ 
+
+
+
+function conectado(tile1, tile2) {
+                        console.log("连接有效");
+                        // 连接有效，处理连接逻辑
+                             //console.log(`Connecting ${tile1.textContent} and ${tile2.textContent}`);
+                         // 变透明
+                         tile1.style.opacity = 0;
+                         tile2.style.opacity = 0;
+                                gameMatrix[tile1.dataset.linhas][tile1.dataset.colunas]=-1;
+                                gameMatrix[tile2.dataset.linhas][tile2.dataset.colunas]=-1;
+                                tile1.style.border = 'none';
+                                tile2.style.border = 'none';
+                                //console.log(`selectedTile( ${tile1.textContent} clickedTile( ${tile2.textContent}`);
+                                selectedTile=null;
+                                total=total-2;
+                                if(total===0){window.alert("venceu");}
+                                //console.log(gameMatrix);
+}
+    
+
+window.onload = initializeGameBoard;
+console.log(gameMatrix);
+</script>
+
+</body>
+</html>
