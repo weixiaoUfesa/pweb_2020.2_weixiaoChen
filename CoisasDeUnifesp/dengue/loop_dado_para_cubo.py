@@ -42,8 +42,8 @@ def processar_arquivo(nome_arquivo):
 # Loop nos arquivos
 lista_resumos = []
 
-for ano in range(14, 24):  # De 2014 (DENGBR14) a 2023 (DENGBR23)
-    nome_arquivo = f'sinan/DENGBR{ano}.csv'
+for ano in range(24, 26):  # De 2014 (DENGBR14) a 2023 (DENGBR23)
+    nome_arquivo =  f'E:/dengue/dengue_dados/DENGBR{ano}.csv'
     print(f"Lendo arquivo: {nome_arquivo}")
     resumo_ano = processar_arquivo(nome_arquivo)
     lista_resumos.append(resumo_ano)
@@ -51,10 +51,10 @@ for ano in range(14, 24):  # De 2014 (DENGBR14) a 2023 (DENGBR23)
 # Concatenação e ordenação
 resumo_todos_anos = pd.concat(lista_resumos)
 resumo_final = resumo_todos_anos.groupby(["ANO", "SEMANA"]).sum().reset_index()
-resumo_final = resumo_final[resumo_final["ANO"].between(2014, 2023)]
+resumo_final = resumo_final[resumo_final["ANO"].between(2024, 2025)]
 resumo_final = resumo_final.sort_values(["ANO", "SEMANA"])
 
 # Exportar CSV
-resumo_final.to_csv('resumo_dengue_2014_2023.csv', index=False)
+resumo_final.to_csv('resumo_dengue_2024_2025.csv', index=False)
 
-print("✅ Arquivo 'resumo_dengue_2014_2023.csv' salvo com sucesso!")
+print("✅ Arquivo 'resumo_dengue_2024_2025.csv' salvo com sucesso!")

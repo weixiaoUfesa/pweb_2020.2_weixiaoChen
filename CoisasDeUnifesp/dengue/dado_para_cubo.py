@@ -1,6 +1,6 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+#import matplotlib.pyplot as plt
+#import seaborn as sns
 
 # Carregar dados
 df = pd.read_csv('sinan//DENGBR23.csv', sep=',')
